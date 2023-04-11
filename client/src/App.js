@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import "./App.css";
+import Main from "./pages/main.jsx";
 
 function App() {
   const callApi = async () => {
@@ -11,7 +12,11 @@ function App() {
     callApi();
   }, []);
 
-  return <div>test</div>;
+  return (
+    <div>
+      <Main />
+    </div>
+  );
 }
 
 export default App;
