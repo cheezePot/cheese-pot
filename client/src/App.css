@@ -1,6 +1,13 @@
 * {
   margin: 0;
   padding: 0;
+  color: white;
+}
+
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+*::-webkit-scrollbar {
+  /*스크롤 없애기*/
+  display: none;
 }
 
 :root {
@@ -12,16 +19,35 @@
 }
 
 @font-face {
-  font-family: "GmarketSansTTFLight";
+  font-family: "GmarketSansLight";
   src: url("./fonts/GmarketSansTTFLight.ttf");
 }
 
 @font-face {
-  font-family: "GmarketSansTTFMedium";
+  font-family: "GmarketSansMedium";
   src: url("./fonts/GmarketSansTTFMedium.ttf");
 }
 
 @font-face {
-  font-family: "GmarketSansTTFBold";
+  font-family: "GmarketSansBold";
   src: url("./fonts/GmarketSansTTFBold.ttf");
+}
+
+.h1-style {
+  font-family: GravityPoints;
+  color: var(--main-color);
+  font-size: 3rem;
+  margin-top: 6rem;
+}
+
+.light {
+  font-family: GmarketSansLight;
+}
+
+.medium {
+  font-family: GmarketSansMedium;
+}
+
+.bold {
+  font-family: GmarketSansBold;
 }
