@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 const CatelogyItem = (props) => {
+  const navigate = useNavigate();
   const rightBoxStyle = {
     height: "100%",
     display: "flex",
@@ -36,7 +38,14 @@ const CatelogyItem = (props) => {
       </div>
       <div style={rightBoxStyle}>
         <h3 style={h3Style}>#{props.title}</h3>
-        <button style={buttonStyle}>리스트 보기</button>
+        <button
+          style={buttonStyle}
+          onClick={() => {
+            navigate("/selectPage");
+          }}
+        >
+          리스트 보기
+        </button>
       </div>
     </div>
   );
