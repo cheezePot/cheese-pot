@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const navContainer = {
   display: "flex",
@@ -21,14 +21,16 @@ const navStyle = {
 };
 
 const Navbar = (props) => {
+  const navigate = useNavigate();
   return (
     <div style={navContainer}>
-      <Link to="../pages/main.jsx">
-        <img
-          src={process.env.PUBLIC_URL + "/images/cheezepotLogo.png"}
-          alt="logo"
-        />
-      </Link>
+      <img
+        src={process.env.PUBLIC_URL + "/images/cheezepotLogo.png"}
+        alt="logo"
+        onClick={() => {
+          navigate("/");
+        }}
+      />
       <div style={rightBar}>
         <li style={navStyle}>CATEGORY</li>
         <li style={navStyle}>CHEEZE LIST</li>
