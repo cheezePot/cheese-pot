@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import CatelogyItem from "../components/List/CatelogyItem";
 import Navbar from "../components/Navbar";
+import Searchbar from "../components/Searchbar";
 
 const main = () => {
   return (
@@ -23,7 +24,8 @@ const main = () => {
         cheese pot gif 들어갈 자리
       </div>
       <div style={{ backgroundColor: "black", height: "980px" }}>
-        <SearchTitle>SEARCH</SearchTitle>
+        <h1 className="h1-border">SEARCH</h1>
+        <Searchbar />
       </div>
       <div style={{ height: "100px", backgroundColor: "var(--main-color)" }}>
         cheese pot gif 들어갈 자리
@@ -45,14 +47,6 @@ const main = () => {
     </div>
   );
 };
-
-const SearchTitle = styled.h1`
-  font-family: GravityPoints;
-  -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: var(--main-color);
-  padding-top: 300px;
-  color: transparent;
-`;
 
 const CategoryTitle = styled.h1`
   padding: 200px 0 160px 0;
