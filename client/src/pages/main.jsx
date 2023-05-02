@@ -4,41 +4,65 @@ import styled from "styled-components";
 import CatelogyItem from "../components/List/CatelogyItem";
 import Navbar from "../components/Navbar";
 import Searchbar from "../components/Searchbar";
+import LineGif from "../components/LineGif";
 
 const main = () => {
   return (
     <div>
-      <div style={{ backgroundColor: "black", height: "980px" }}>
-        <Navbar />
-        <h1
-          style={{
-            color: "white",
-            textAlign: "center",
-            fontFamily: "GravityPoints",
-          }}
-        >
-          CHEEZEPOT
-        </h1>
-      </div>
-      <div style={{ height: "100px", backgroundColor: "var(--main-color)" }}>
-        cheese pot gif 들어갈 자리
-      </div>
-      <div style={{ backgroundColor: "black", height: "980px" }}>
-        <h1 className="h1-border">SEARCH</h1>
-        <Searchbar />
-      </div>
-      <div style={{ height: "100px", backgroundColor: "var(--main-color)" }}>
-        cheese pot gif 들어갈 자리
-      </div>
+      {/* main */}
       <div
         style={{
           backgroundColor: "black",
-          height: "980px",
-          paddingLeft: "10rem",
+          height: "98rem",
         }}
       >
-        <CategoryTitle>CATELOGY</CategoryTitle>
-        <div style={{ display: "flex", gap: "4rem" }}>
+        {/* navbar수정해야함. */}
+        <Navbar />
+        <img
+          src={process.env.PUBLIC_URL + "images/cheezeLogoMain.png"}
+          alt="cheezeLogo"
+          style={{ position: "relative", left: "18%" }}
+        />
+      </div>
+      {/* main */}
+      <LineGif />
+      {/* search container */}
+      <div
+        style={{
+          backgroundColor: "black",
+          height: "108rem",
+          paddingLeft: "37rem",
+        }}
+      >
+        <h1 className="h1-border" style={{ marginBottom: "6rem" }}>
+          SEARCH
+        </h1>
+        <div
+          style={{
+            width: "58rem",
+            height: "58rem",
+            backgroundColor: "red",
+            float: "left",
+          }}
+        ></div>
+        <Searchbar />
+      </div>
+      <LineGif />
+      {/* category container */}
+      <div
+        style={{
+          backgroundColor: "black",
+          height: "98rem",
+          paddingLeft: "37rem",
+        }}
+      >
+        <CategoryHeader>
+          <CategoryTitle>CATEGORY</CategoryTitle>
+          <div>
+            <img src={process.env.PUBLIC_URL + "/images/moreButton.png"} />
+          </div>
+        </CategoryHeader>
+        <div style={{ display: "flex", columnGap: "4rem" }}>
           <CatelogyItem title={"MOVIE"} />
           <CatelogyItem title={"DRAMA"} />
           <CatelogyItem title={"ANIME"} />
@@ -49,8 +73,15 @@ const main = () => {
 };
 
 const CategoryTitle = styled.h1`
-  padding: 200px 0 160px 0;
   font-family: GravityPoints;
   color: white;
+  font-size: 3rem;
+  font-weight: normal;
+`;
+
+const CategoryHeader = styled.div`
+  display: flex;
+  padding: 20rem 0 16rem 0;
+  column-gap: 30vw;
 `;
 export default main;
