@@ -14,7 +14,7 @@ const rightBar = {
 
 const navStyle = {
   fontFamily: "GravityPoints",
-  fontSize: "8px",
+  fontSize: "0.8rem",
   color: "white",
   position: "relative",
   listStyleType: "none",

@@ -3,8 +3,8 @@ import { useState } from "react";
 
 // 향후 각 장소를 저장했을 때 사용자 DB에 들어가도록 해야함.
 const ToggleBtn = styled.button`
-  width: 80px;
-  height: 80px;
+  width: 0.8rem;
+  height: 0.8rem;
   border: none;
   cursor: pointer;
   /* background-color: ${(props) =>

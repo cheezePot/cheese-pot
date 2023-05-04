@@ -9,14 +9,14 @@ const MediaItem = (props) => {
           objectFit: "fill",
         }}
       />
-      <h3 style={{ marginTop: "30px" }}>러브레터</h3>
+      <h2 style={{ marginTop: "3rem" }}>러브레터</h2>
     </div>
   );
 };
 
 const MediaImage = styled.div`
-  width: 23.75rem; //380px
-  height: 23.75rem;
+  width: 38rem;
+  height: 38rem;
   border-radius: 1.2rem;
 `;
 export default MediaItem;

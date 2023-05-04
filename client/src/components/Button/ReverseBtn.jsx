@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const Container = styled.button`
-  width: 380px;
-  height: 100px;
-  border-radius: 20px;
+  width: 38rem;
+  height: 10rem;
+  border-radius: 2rem;
   padding: 1rem 1.8rem;
-  border: 3px solid var(--main-color);
+  border: 0.3rem solid var(--main-color);
   font-size: 3rem;
   background-color: black;
   transition: linear 0.3s;

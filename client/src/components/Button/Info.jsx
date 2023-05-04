@@ -17,8 +17,8 @@ const Info = () => {
 
 const Container = styled.button`
   background-color: transparent;
-  border: 3px solid var(--main-color);
-  border-radius: 30px;
+  border: 0.3rem solid var(--main-color);
+  border-radius: 3rem;
   padding: 1rem 1.8rem;
   color: var(--main-color);
 `;

@@ -35,14 +35,14 @@ const DetailAlart = () => {
 };
 
 const Container = styled.div`
-  width: 780px;
-  height: 380px;
+  width: 78rem;
+  height: 38rem;
   border-radius: 1.2rem;
-  border: 3px solid var(--main-color);
+  border: 0.3rem solid var(--main-color);
 `;
 const Image = styled.div`
-  width: 380px;
-  height: 380px;
+  width: 38rem;
+  height: 38rem;
   border-radius: 1.2rem;
   background-color: red;
 `;

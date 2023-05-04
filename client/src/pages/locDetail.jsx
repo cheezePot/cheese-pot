@@ -8,7 +8,7 @@ import ReverseBtn from "../components/Button/ReverseBtn";
 const locDetail = () => {
   return (
     <Container>
-      <div style={{ height: "1080px" }}>
+      <div style={{ height: "108rem" }}>
         <Navbar />
       </div>
       <ContentBox>
@@ -21,11 +21,12 @@ const locDetail = () => {
         </h2>
         <CheezeTiket />
         <div
-          style={{ width: "780px", height: "480px", backgroundColor: "red" }}
+          style={{ width: "78rem", height: "48rem", backgroundColor: "red" }}
         ></div>
       </ContentBox>
       <LineGif />
       <h1 className="h1-border">COMMUNITY</h1>
+      <ReverseBtn />
       <ReverseBtn />
     </Container>
   );
@@ -40,7 +41,7 @@ const Container = styled.div`
 `;
 
 const ContentBox = styled.div`
-  height: 1560px;
+  height: 156rem;
   display: flex;
   justify-content: center;
   align-items: center;
