@@ -1,17 +1,54 @@
+// 사진눌렀을 때 나오는 alart창
 import styled from "styled-components";
+
+const Container = styled.div`
+  width: 78rem;
+  height: 38rem;
+  border-radius: 1.2rem;
+  border: 0.3rem solid var(--main-color);
+`;
+const Image = styled.div`
+  width: 38rem;
+  height: 38rem;
+  border-radius: 1.2rem;
+  background-color: red;
+`;
+
+const Inner = styled.div`
+  overflow: hidden;
+  margin: 0 1.2rem 0 0;
+  padding-left: 3rem;
+`;
+
+// 작품 제목
+const Title = styled.h1`
+  font-size: 2.8rem;
+  color: var(--main-color);
+  padding: 5rem 0 2rem 0;
+  margin-right: 3rem;
+`;
+
+// 내용들...
+const Content = styled.div`
+  margin-top: 3rem;
+  display: grid; // 4행 2열
+  grid-template-rows: repeat(3, 5rem) 10rem;
+  grid-template-columns: 5rem 30rem;
+  justify-items: baseline;
+  font-size: 1.4rem;
+  line-height: 2.5rem;
+`;
+
+const Label = styled.label`
+  font-family: GmarketSansMedium;
+  color: var(--main-color);
+`;
 
 const DetailAlart = () => {
   return (
     <Container>
       <Image style={{ float: "left" }} />
-      <div
-        className="light"
-        style={{
-          overflow: "hidden",
-          margin: "0 1.2rem 0 0",
-          paddingLeft: "3rem",
-        }}
-      >
+      <Inner className="light">
         <Title>러브레터</Title>
         <hr style={{ backgroundColor: "var(--main-color)" }} />
         <Content>
@@ -29,43 +66,9 @@ const DetailAlart = () => {
             </div>
           </span>
         </Content>
-      </div>
+      </Inner>
     </Container>
   );
 };
 
-const Container = styled.div`
-  width: 78rem;
-  height: 38rem;
-  border-radius: 1.2rem;
-  border: 0.3rem solid var(--main-color);
-`;
-const Image = styled.div`
-  width: 38rem;
-  height: 38rem;
-  border-radius: 1.2rem;
-  background-color: red;
-`;
-
-const Title = styled.h1`
-  font-size: 2.8rem;
-  color: var(--main-color);
-  padding: 5rem 0 2rem 0;
-  margin-right: 3rem;
-`;
-
-const Content = styled.div`
-  margin-top: 3rem;
-  display: grid;
-  grid-template-rows: repeat(3, 5rem) 10rem;
-  grid-template-columns: 5rem 30rem;
-  justify-items: baseline;
-  font-size: 1.4rem;
-  line-height: 2.5rem;
-`;
-
-const Label = styled.label`
-  font-family: GmarketSansMedium;
-  color: var(--main-color);
-`;
 export default DetailAlart;

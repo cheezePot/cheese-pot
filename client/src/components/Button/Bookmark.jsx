@@ -1,14 +1,13 @@
+// 치즈모양 북마트 toggle button
 import styled, { css } from "styled-components";
 import { useState } from "react";
 
 // 향후 각 장소를 저장했을 때 사용자 DB에 들어가도록 해야함.
 const ToggleBtn = styled.button`
-  width: 0.8rem;
-  height: 0.8rem;
+  width: 8rem;
+  height: 8rem;
   border: none;
   cursor: pointer;
-  /* background-color: ${(props) =>
-    !props.toggle ? "none" : "rgb(51,30,190)"}; */
   background: transparent;
   /* toggle의 상태에 따라 이미지가 바뀜 */
   background-image: ${(props) =>
@@ -28,12 +27,12 @@ const Bookmark = () => {
   const [isOn, setisOn] = useState(false);
 
   const toggleHandler = () => {
-    setisOn(!isOn);
+    setisOn(!isOn); //toggle 설정
   };
 
   return (
     <>
-      {/* props로 isOn */}
+      {/* props에 isOn state를 넘김 */}
       <ToggleBtn onClick={toggleHandler} toggle={isOn}></ToggleBtn>
     </>
   );

@@ -1,26 +1,26 @@
-// 정보 알아보기 button
+// 자세히 보기 button
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const Info = () => {
+const Detail = () => {
   const navigate = useNavigate();
 
   return (
     <Container
       onClick={() => {
-        navigate("/locList");
+        navigate("/locDetail");
       }}
     >
-      정보 알아보기
+      자세히 보기
     </Container>
   );
 };
 
 const Container = styled.button`
   background-color: transparent;
-  border: 0.3rem solid var(--main-color);
+  border: 0.2rem solid white;
   border-radius: 3rem;
-  padding: 1rem 1.8rem;
-  color: var(--main-color);
+  padding: 1rem 2.5rem;
+  color: white;
 `;
-export default Info;
+export default Detail;

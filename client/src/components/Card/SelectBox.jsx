@@ -1,3 +1,5 @@
+// 드롭박스
+import styled from "styled-components";
 import "./SelectBoxStyle.css";
 
 const SelectBox = () => {

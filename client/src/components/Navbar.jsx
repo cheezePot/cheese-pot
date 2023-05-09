@@ -1,3 +1,4 @@
+// 네비게이션바
 import { useNavigate } from "react-router-dom";
 
 const navContainer = {
@@ -8,8 +9,8 @@ const navContainer = {
 const rightBar = {
   marginLeft: "1rem",
   display: "flex",
-  marginLeft: "auto",
-  gap: "1rem",
+  marginLeft: "auto", // 오른쪽으로 붙이기
+  gap: "2rem",
 };
 
 const navStyle = {
@@ -25,10 +26,10 @@ const Navbar = (props) => {
   return (
     <div style={navContainer}>
       <img
-        src={process.env.PUBLIC_URL + "/images/cheezepotLogo.png"}
+        src={process.env.PUBLIC_URL + "/images/cheezepotLogo.png"} //logo
         alt="logo"
         onClick={() => {
-          navigate("/");
+          navigate("/"); //main page로 이동
         }}
       />
       <div style={rightBar}>

@@ -1,32 +1,38 @@
 import styled from "styled-components";
 
-const Searchbar = () => {
-  return (
-    <Container>
-      <Input placeholder="검색어를 입력해주세요"></Input>
-      <Icon>icon</Icon>
-    </Container>
-  );
-};
-
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 const Input = styled.input`
-  border: 3px solid var(--main-color);
-  border-radius: 2.5rem;
-  padding: 1.2rem 2rem;
+  width: 45rem;
+  border: 0.3rem solid var(--main-color);
+  border-radius: 4rem;
+  padding: 2rem 4rem;
   background-color: transparent;
-  width: 32rem;
-  font-size: 1.1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
   overflow: hidden;
 `;
 
 const Icon = styled.div`
+  width: 3rem;
+  height: 3rem;
+  right: 6rem;
+  background-image: url("/images/searchIcon.png");
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
-  right: 4rem;
 `;
+
+const Searchbar = () => {
+  return (
+    <Container>
+      <Input placeholder="검색어를 입력해주세요"></Input>
+      <Icon /> {/* 돋보기 아이콘 */}
+    </Container>
+  );
+};
 
 export default Searchbar;

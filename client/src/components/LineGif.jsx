@@ -1,3 +1,4 @@
+// cheezepot line 전광판 gif
 const LineGif = () => {
   return (
     <div style={{ height: "10rem", backgroundColor: "var(--main-color)" }}>

@@ -1,3 +1,4 @@
+// 티켓컴포넌트
 import styled from "styled-components";
 
 const CheezeTiket = () => {
@@ -26,13 +27,13 @@ const Container = styled.div`
   background-repeat: no-repeat;
 `;
 
+// 치즈티켓 내부 내용 부분
 const Content = styled.div`
-  // 치즈티켓 내부 내용 부분
   position: relative;
   top: 15rem;
   left: 10rem;
   font-size: 1.6rem;
-  display: grid;
+  display: grid; // 그리드 3행 2열
   grid-template-columns: 15rem 24rem;
   grid-template-rows: repeat(2, 7rem);
   justify-items: flex-start;
