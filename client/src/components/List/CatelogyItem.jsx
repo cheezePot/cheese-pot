@@ -26,7 +26,10 @@ const CatelogyItem = (props) => {
     width: 20rem;
     height: 20rem;
     float: left;
-    background-color: red;
+    background-image: ${(props) =>
+      `url(${process.env.PUBLIC_URL}/images/${props.title}.gif)`};
+    background-position: center;
+    background-size: contain;
     margin: 2rem;
   `;
 
@@ -49,7 +52,7 @@ const CatelogyItem = (props) => {
 
   return (
     <Container>
-      <Image>사진 들어갈 자리</Image>
+      <Image title={props.title} />
       <RightBox>
         <H3>#{props.title}</H3>
         <ToListBtn
