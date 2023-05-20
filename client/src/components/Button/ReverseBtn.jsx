@@ -20,7 +20,7 @@ const Container = styled.button`
   }
 `;
 
-const ReverseBtn = () => {
+const ReverseBtn = (props) => {
   const [isOn, setisOn] = useState(false);
 
   const toggleHandler = () => {
@@ -34,7 +34,7 @@ const ReverseBtn = () => {
         isOn ? `toggle--checked h1-style` : "h1-border"
       }`}
     >
-      REVIEW
+      {props.content}
     </Container>
   );
 };
