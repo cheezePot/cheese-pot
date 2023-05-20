@@ -24,6 +24,7 @@ const Icon = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
+  cursor: pointer;
 `;
 
 const Searchbar = () => {
