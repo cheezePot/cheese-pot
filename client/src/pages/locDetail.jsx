@@ -34,6 +34,11 @@ const ContentBox = styled.div`
 const LocDetail = () => {
   const { pathname } = useLocation();
   const [isOn, setisOn] = useState(false);
+  // location 위도 경도
+  let [location, setLocation] = useState({
+    lat: 43.198646330045015,
+    lng: 140.99112959195782,
+  });
 
   useEffect(() => {
     // 페이지 이동후 스크롤을 가장 위로 올림.
@@ -55,7 +60,7 @@ const LocDetail = () => {
           처음 영화가 시작될 때 우체부가 오토바이를 타고 언덕을 올라오는 장면
         </h2>
         <CheezeTiket />
-        <GoogleMaps />
+        <GoogleMaps center={location} />
       </ContentBox>
       <LineGif />
       <h1 className="h1-border">COMMUNITY</h1>

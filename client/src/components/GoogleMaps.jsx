@@ -9,15 +9,19 @@ const containerStyle = {
   marginTop: "8rem",
 };
 
-const center = {
-  lat: 43.198646330045015,
-  lng: 140.99112959195782,
-};
+// const center = {
+//   lat: 43.198646330045015,
+//   lng: 140.99112959195782,
+// };
 
-function GoogleMaps() {
+function GoogleMaps(props) {
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={18}>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={props.center}
+        zoom={18}
+      >
         {/* Child components, such as markers, info windows, etc. */}
         <></>
       </GoogleMap>
