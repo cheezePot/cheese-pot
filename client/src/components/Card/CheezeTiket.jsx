@@ -24,7 +24,6 @@ const Container = styled.div`
   height: 38.7rem;
   background-image: url("/images/ticket.png");
   background-position: center;
-  background-repeat: no-repeat;
 `;
 
 // 치즈티켓 내부 내용 부분

@@ -23,7 +23,6 @@ const Image = styled.div`
   width: 48rem;
   height: 40rem;
   background-image: url("/images/DRAMA.gif");
-  background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 `;

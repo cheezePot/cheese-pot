@@ -95,7 +95,6 @@ const Main = () => {
             width: "58rem",
             height: "58rem",
             backgroundImage: "url(images/searchAsset.gif)",
-            backgroundRepeat: "no-repeat",
             float: "left",
           }}
         ></div>

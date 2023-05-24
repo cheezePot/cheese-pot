@@ -9,7 +9,6 @@ const Container = styled.div`
   color: white;
   padding: 0 47rem;
   background-image: url("https://ko.uni24k.com/media/CACHE/images/unis/building_schools_u3cf4a4a1_871b037d/2237f7157891e223374edb20f3de9af8.jpg");
-  background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   z-index: -1;

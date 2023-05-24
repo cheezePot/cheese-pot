@@ -3,6 +3,7 @@
   padding: 0;
   color: white;
   font-family: "GmarketSansLight";
+  background-repeat: no-repeat;
 }
 
 /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
@@ -17,6 +18,7 @@ html {
 }
 
 :root {
+  /* 컬러 색상 */
   --main-color: #f8f755;
 }
 @font-face {
@@ -51,10 +53,10 @@ html {
   /* 바깥테두리만 있는 title스타일 */
   font-family: GravityPoints;
   font-size: 6rem;
-  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-width: 0.05rem; /* 텍스트 바깥 라인*/
   -webkit-text-stroke-color: var(--main-color);
-  padding-top: 300px;
-  color: transparent;
+  padding-top: 30rem;
+  color: transparent; /* 투명 */
 }
 
 .light {

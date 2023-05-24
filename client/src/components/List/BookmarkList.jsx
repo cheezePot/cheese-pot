@@ -27,7 +27,6 @@ const Image = styled.div`
   background-image: url("https://ko.uni24k.com/media/CACHE/images/unis/building_schools_u3cf4a4a1_871b037d/2237f7157891e223374edb20f3de9af8.jpg");
   background-position: center;
   background-size: cover;
-  background-repeat: no-repeat;
   margin: 0 auto;
 `;
 const Hr = styled.hr`

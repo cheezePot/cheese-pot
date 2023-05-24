@@ -22,7 +22,6 @@ const Icon = styled.div`
   right: 6rem;
   background-image: url("/images/searchIcon.png");
   background-position: center;
-  background-repeat: no-repeat;
   position: relative;
   cursor: pointer;
 `;
