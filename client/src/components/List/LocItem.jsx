@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Detail from "../Button/Detail";
+import Bookmark from "../Button/Bookmark";
 
 const Container = styled.div`
   width: 192rem;
@@ -32,8 +33,8 @@ const Content = styled.div`
 const LocTitle = styled.div`
   font-size: 5rem;
   font-family: GmarketSansBold;
-  padding-top: 10rem;
-  margin-bottom: 2.4rem;
+  // padding-top: 10rem;
+  // margin-bottom: 2.4rem;
 `;
 
 const LocDetail = styled.div`
@@ -41,13 +42,24 @@ const LocDetail = styled.div`
   margin-bottom: 15rem;
 `;
 
+const DivContent = styled.div`
+  width: 100%;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  gap: 60rem;
+  margin-top: 10rem;
+`;
 const LocItem = () => {
   return (
     <>
       <Gradient />
       <Container>
         <Content>
-          <LocTitle>나고야 음악대학</LocTitle>
+          <DivContent>
+            <LocTitle>나고야 음악대학</LocTitle>
+            <Bookmark />
+          </DivContent>
           <LocDetail>메구미와 신이치가 다니는 대학교</LocDetail>
           <Detail />
         </Content>

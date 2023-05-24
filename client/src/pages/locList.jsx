@@ -8,8 +8,8 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   background-color: black;
-  margin: 0;
   text-align: left;
+  overflow: hidden;
 `;
 
 const Top = styled.div`
@@ -22,7 +22,10 @@ const Top = styled.div`
 const Image = styled.div`
   width: 48rem;
   height: 40rem;
-  background-color: red;
+  background-image: url("/images/DRAMA.gif");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 `;
 
 const LocList = () => {
@@ -37,11 +40,7 @@ const LocList = () => {
       <Navbar />
       <div style={{ padding: "0 37rem" }}>
         <Top>
-          <div className="h1-style">
-            DRAMA
-            <br />
-            TITLE
-          </div>
+          <div className="h1-style">노다메 칸타빌레</div>
           <Image />
         </Top>
       </div>
