@@ -4,8 +4,8 @@ import { useState } from "react";
 
 // 향후 각 장소를 저장했을 때 사용자 DB에 들어가도록 해야함.
 const ToggleBtn = styled.button`
-  width: 8rem;
-  height: 8rem;
+  width: ${(props) => props.width || "8rem"};
+  height: ${(props) => props.height || "8rem"};
   border: none;
   cursor: pointer;
   background: transparent;
@@ -16,14 +16,14 @@ const ToggleBtn = styled.button`
       : `url(${process.env.PUBLIC_URL}/images/cheeseChk.png)`};
   background-position: center;
   background-size: cover;
-  object-fit: cover;
+  object-fit: contain;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.5s ease-in-out;
 `;
 
-const Bookmark = () => {
+const Bookmark = (props) => {
   const [isOn, setisOn] = useState(false);
 
   const toggleHandler = () => {
@@ -33,7 +33,13 @@ const Bookmark = () => {
   return (
     <>
       {/* props에 isOn state를 넘김 */}
-      <ToggleBtn onClick={toggleHandler} toggle={isOn}></ToggleBtn>
+      <ToggleBtn
+        onClick={toggleHandler}
+        toggle={isOn}
+        width={props.width}
+        height={props.height}
+        style={props.style}
+      ></ToggleBtn>
     </>
   );
 };

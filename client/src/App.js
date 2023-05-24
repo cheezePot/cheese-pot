@@ -6,6 +6,7 @@ import Main from "./pages/main.jsx";
 import SelectPage from "./pages/selectPage.jsx";
 import LocList from "./pages/locList";
 import LocDetail from "./pages/locDetail";
+import CheezeList from "./pages/cheezeList";
 
 function App() {
   const callApi = async () => {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/selectPage" element={<SelectPage />} />
         <Route path="/locList" element={<LocList />} />
         <Route path="/locDetail" element={<LocDetail />} />
+        <Route path="/cheezeList" element={<CheezeList />} />
       </Routes>
     </div>
   );
