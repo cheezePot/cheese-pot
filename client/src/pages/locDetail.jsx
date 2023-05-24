@@ -6,6 +6,7 @@ import Bookmark from "../components/Button/Bookmark";
 import CheezeTiket from "../components/Card/CheezeTiket";
 import LineGif from "../components/LineGif";
 import ReverseBtn from "../components/Button/ReverseBtn";
+import GoogleMaps from "../components/GoogleMaps";
 
 const Container = styled.div`
   width: 100%;
@@ -54,17 +55,7 @@ const LocDetail = () => {
           처음 영화가 시작될 때 우체부가 오토바이를 타고 언덕을 올라오는 장면
         </h2>
         <CheezeTiket />
-        {/* google maps 들어가는 자리 */}
-        <div
-          style={{
-            width: "78rem",
-            height: "48rem",
-            backgroundColor: "red",
-            borderRadius: "2rem",
-            marginTop: "8rem",
-          }}
-        ></div>
-        {/* google maps 들어가는 자리 */}
+        <GoogleMaps />
       </ContentBox>
       <LineGif />
       <h1 className="h1-border">COMMUNITY</h1>
