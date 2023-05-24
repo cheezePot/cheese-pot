@@ -35,7 +35,13 @@ const Navbar = (props) => {
       />
       <RightBar>
         <Linked>CATEGORY</Linked>
-        <Linked>CHEEZE LIST</Linked>
+        <Linked
+          onClick={() => {
+            navigate("/cheezeList");
+          }}
+        >
+          CHEEZE LIST
+        </Linked>
       </RightBar>
     </NavContainer>
   );

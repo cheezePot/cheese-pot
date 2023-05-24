@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CatelogyItem from "../components/List/CatelogyItem";
 import Searchbar from "../components/Searchbar";
@@ -45,7 +45,8 @@ const Linked = styled.div`
   cursor: pointer;
 `;
 
-const main = () => {
+const Main = () => {
+  const navigate = useNavigate();
   return (
     <div style={{ overflow: "hidden" }}>
       {/* main */}
@@ -60,7 +61,13 @@ const main = () => {
         {/* navbar */}
         <MainNavbar>
           <Linked>CATEGORY</Linked>
-          <Linked>CHEEZE LIST</Linked>
+          <Linked
+            onClick={() => {
+              navigate("/cheezeList");
+            }}
+          >
+            CHEEZE LIST
+          </Linked>
         </MainNavbar>
         {/* navbar */}
         <img
@@ -119,4 +126,4 @@ const main = () => {
   );
 };
 
-export default main;
+export default Main;
