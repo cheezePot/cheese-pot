@@ -9,19 +9,20 @@ import LocDetail from "./pages/locDetail";
 import CheezeList from "./pages/cheezeList";
 
 function App() {
-  const callApi = async () => {
-    axios.get("/api").then((res) => console.log(res.data.test));
-  };
+  // const callApi = async () => {
+  //   axios.get("/api").then((res) => console.log(res.data.test));
+  // };
 
-  useEffect(() => {
-    callApi();
-  }, []);
+  // useEffect(() => {
+  //   callApi();
+  // }, []);
 
   return (
     <div>
       <Routes>
         <Route path="/" exact element={<Main />} />
-        <Route path="/selectPage" element={<SelectPage />} />
+        {/* 동적라우팅 */}
+        <Route path="/selectPage/:title" element={<SelectPage />} />
         <Route path="/locList" element={<LocList />} />
         <Route path="/locDetail" element={<LocDetail />} />
         <Route path="/cheezeList" element={<CheezeList />} />

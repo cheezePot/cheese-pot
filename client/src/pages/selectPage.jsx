@@ -1,7 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense} from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import axios from 'axios';
 import CatelogyItem from "../components/List/CatelogyItem";
 import Navbar from "../components/Navbar";
 import MediaItem from "../components/List/MediaItem";
@@ -10,9 +10,17 @@ import DetailAlart from "../components/Card/DetailAlart";
 import Info from "../components/Button/Info";
 import ReverseBtn from "../components/Button/ReverseBtn";
 
+
+// axios({
+//   method: 'GET',
+//   url: 'http://localhost:5000/api/movie',
+// }).then((response) => console.log(response));
+
 const Container = styled.div`
   background-color: black;
-  height: 120%;
+  height: 100%;
+  padding-bottom: 5rem;
+  // position: fixed; //스크롤 막기
 `;
 
 const Main = styled.div`
@@ -40,49 +48,68 @@ const MediaContainer = styled.div`
 `;
 
 const SelectPage = () => {
+  const [contents, setContents] = useState();
+  const [panding, setPanding] = useState(false);
   const { pathname } = useLocation();
-  const [count, setCount] = useState(5); // 총 본 영화 갯수가 몇인지
-
+  const location = useLocation();
+  const title = location.state.title;
+  const [count, setCount] = useState(); // 총 본 영화 갯수가 몇인지
+  const [isAlart, setIsAlart] = useState(false); //alart창이 띄워지는가?
+  const [index, setIndex] = useState(-1);
+  
+  // api가져오기
   useEffect(() => {
-    // 페이지 이동후 스크롤을 가장 위로 올림.
-    window.scrollTo(0, 0);
-  }, [pathname]);
+      axios.get(`http://localhost:5000/api/${title}`)
+      .then((res) => {
+        // console.log(res.data);
+        setContents(res.data);
+        setCount(Object.keys(res.data).length)
+        setPanding(true);
+      })
+  }, []);
 
+    useEffect(() => {
+      // 페이지 이동후 스크롤을 가장 위로 올림.
+      window.scrollTo(0, 0);
+    }, [pathname]);
+    
   return (
     <Container>
-      <Navbar />
-      <Main>
-        <h1 className="h1-style">MOVIE</h1>
-        <SubNavbar>
-          <h2>
-            <span
-              style={{
-                fontSize: "3.2rem",
-                fontWeight: "bold",
-              }}
-            >
-              {count}
-            </span>
-            MOVIES
-          </h2>
-          <Selectors>
-            <SelectBox />
-            <SelectBox />
-            <SelectBox />
-          </Selectors>
-        </SubNavbar>
-        <MediaContainer>
-          {/* 향후 db에서 map함수 사용 */}
-          <MediaItem onClick={() => {}} />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-        </MediaContainer>
-      </Main>
-      <DetailAlart />
-      <Info />
-    </Container>
+      {isAlart ? <DetailAlart contents={contents} index={index} click={()=>{setIsAlart(false)}} /> : null}
+        <Navbar />
+        <Main>
+          <h1 className="h1-style">{title}</h1>
+          <SubNavbar>
+            <h2>
+              <span
+                style={{
+                  fontSize: "3.2rem",
+                  fontWeight: "bold",
+                }}
+              >
+                {count}
+              </span>
+              {title}
+            </h2>
+            <Selectors>
+              <SelectBox />
+              <SelectBox />
+              <SelectBox />
+            </Selectors>
+          </SubNavbar>
+          <Suspense fallback={<p>Loading user details...</p>}>
+            <MediaContainer>
+              {/* 향후 db에서 map함수 사용 */}
+              {panding ? 
+              contents.map((a, i)=>{
+                return(
+                  <MediaItem click={()=>{ setIsAlart(true); setIndex(i)}} title={contents[i]["contit"]} imageUrl={contents[i]["titconlin"]}/>
+                )
+              }): <div>로딩중...</div>}
+            </MediaContainer>
+          </Suspense>
+        </Main>
+      </Container>
   );
 };
 
