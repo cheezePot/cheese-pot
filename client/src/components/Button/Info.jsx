@@ -17,10 +17,13 @@ const Info = () => {
 };
 
 const Container = styled.button`
-  background-color: transparent;
-  border: 0.3rem solid var(--main-color);
+  position: absolute;
+  left: 40%;
+  margin-top: 5rem;
+  background-color: black;
+  border: 0.25rem solid var(--main-color);
   border-radius: 3rem;
-  padding: 1rem 1.8rem;
+  padding: 1.5rem 3rem;
   color: var(--main-color);
 `;
 export default Info;
