@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense} from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from 'axios';
 import CatelogyItem from "../components/List/CatelogyItem";
@@ -9,12 +9,6 @@ import SelectBox from "../components/Card/SelectBox";
 import DetailAlart from "../components/Card/DetailAlart";
 import Info from "../components/Button/Info";
 import ReverseBtn from "../components/Button/ReverseBtn";
-
-
-// axios({
-//   method: 'GET',
-//   url: 'http://localhost:5000/api/movie',
-// }).then((response) => console.log(response));
 
 const Container = styled.div`
   background-color: black;
@@ -47,19 +41,19 @@ const MediaContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const SelectPage = () => {
+const SelectPage = (props) => {
   const [contents, setContents] = useState();
   const [panding, setPanding] = useState(false);
   const { pathname } = useLocation();
   const location = useLocation();
-  const title = location.state.title;
+  const content = location.state.content;
   const [count, setCount] = useState(); // 총 본 영화 갯수가 몇인지
   const [isAlart, setIsAlart] = useState(false); //alart창이 띄워지는가?
   const [index, setIndex] = useState(-1);
   
   // api가져오기
   useEffect(() => {
-      axios.get(`http://localhost:5000/api/${title}`)
+      axios.get(`http://localhost:5000/api/${content}`)
       .then((res) => {
         // console.log(res.data);
         setContents(res.data);
@@ -75,10 +69,10 @@ const SelectPage = () => {
     
   return (
     <Container>
-      {isAlart ? <DetailAlart contents={contents} index={index} click={()=>{setIsAlart(false)}} /> : null}
+      {isAlart ? <DetailAlart content={content} contents={contents} index={index} title={contents[index]["contit"]} click={()=>{setIsAlart(false)}} /> : null}
         <Navbar />
         <Main>
-          <h1 className="h1-style">{title}</h1>
+          <h1 className="h1-style">{content}</h1>
           <SubNavbar>
             <h2>
               <span
@@ -89,7 +83,7 @@ const SelectPage = () => {
               >
                 {count}
               </span>
-              {title}
+              {content}
             </h2>
             <Selectors>
               <SelectBox />

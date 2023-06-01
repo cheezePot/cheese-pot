@@ -116,9 +116,9 @@ const Main = () => {
           </div>
         </CategoryHeader>
         <div style={{ display: "flex", columnGap: "4rem" }}>
-          <CatelogyItem title={"MOVIE"} />
-          <CatelogyItem title={"DRAMA"} />
-          <CatelogyItem title={"ANIME"} />
+          <CatelogyItem content={"MOVIE"} />
+          <CatelogyItem content={"DRAMA"} />
+          <CatelogyItem content={"ANIME"} />
         </div>
       </div>
     </div>
