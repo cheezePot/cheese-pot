@@ -13,11 +13,18 @@ let express = require("express");
 let ejs = require("ejs");
 let app = express();
 let path = require("path");
-let mysql = require("mysql");
+var mysql = require("mysql");
+const bodyParser = require("body-parser");
+const cors = require('cors');
 
-let dbconn = mysql.createConnection({
-  user: "root",
-  password: "root",
+app.use(cors());
+
+require("dotenv").config();
+
+var dbconn = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USERNAME || "root",
+  password: process.env.DB_PASSWORD,
   database: "cheesepot",
 });
 
@@ -32,81 +39,43 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/api/movie", (req, res) => {
-  console.log("/get/movie 시작");
-  dbconn.query("select * from contents where conca='MOVIE'", (err, results) => {
+app.get("/api/:content", (req, res) => {
+  console.log(`/get/${req.params.content} 시작`);
+  dbconn.query("select * from contents where conca=?", 
+  [req.params.content],
+  (err, results) => {
     if (err) {
       console.log("db select error" + err);
     } else {
-      console.log(results);
-      res.render("movie", { datalist: results });
+      // console.log(results);
+      res.send(results);
+      // res.render("movie", { datalist: results });
     }
   });
 });
 
-app.get("/api/drama", (req, res) => {
-  console.log("/get/drama 시작");
-  dbconn.query(
-    "select * from contents where conca='DRAMA' ",
-    (err, results) => {
-      if (err) {
-        console.log("db select error" + err);
-      } else {
-        console.log(results);
-        res.render("drama", { datalist: results });
-      }
-    }
-  );
-});
-
-app.get("/api/anime", (req, res) => {
-  console.log("/get/anime 시작");
-  dbconn.query("select * from contents where conca='ANIME'", (err, results) => {
+app.get(`/api/locdata/:connum`, (req, res) => {
+  // let { conca, connum } = req.params;
+  dbconn.query("select * from location where connum=?", 
+  [parseInt(req.params.connum)],
+  (err, results) => {
     if (err) {
       console.log("db select error" + err);
     } else {
-      console.log(results);
-      res.render("anime", { datalist: results });
+      res.send(results);
     }
   });
 });
 
-let click = 1;
-
-app.get("/api/movie/:click", (req, res) => {
-  console.log(click);
-  dbconn.query(
-    "select * from contents where conca='MOVIE' and connum = ?",
-    1,
-    (err, results) => {
-      if (err) console.log("edit err " + err);
-      else {
-        res.render("test", { datalist: results });
-      }
-    }
-  );
-});
-
-app.get(`/api/movie/${click}/locdata`, (req, res) => {
-  console.log("/getme 시작");
-  dbconn.query("select * from location where connum = 1", (err, results) => {
+app.get(`/api/locdata/:connum/detail/:locnum`, (req, res) => {
+  let { connum, locnum } = req.params;
+  dbconn.query("select * from location where connum=? AND locnum=?", 
+  [parseInt(connum), parseInt(locnum)],
+  (err, results) => {
     if (err) {
       console.log("db select error" + err);
     } else {
-      console.log(results);
-      res.render("movie1", { datalist: results });
-    }
-  });
-});
-
-app.get(`/api/movie/${click}/locdata/1`, (req, res) => {
-  console.log("/getme 시작");
-  dbconn.query("select * from location where locnum = 1", (err, results) => {
-    if (err) {
-      console.log("db select error" + err);
-    } else {
-      console.log(results);
-      res.render("movie2", { datalist: results });
+      res.send(results);
     }
   });
 });
