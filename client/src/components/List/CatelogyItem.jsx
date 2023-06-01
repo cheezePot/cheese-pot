@@ -27,7 +27,7 @@ const CatelogyItem = (props) => {
     height: 20rem;
     float: left;
     background-image: ${(props) =>
-      `url(${process.env.PUBLIC_URL}/images/${props.title}.gif)`};
+      `url(${process.env.PUBLIC_URL}/images/categorlItem/${props.content}.gif)`};
     background-position: center;
     background-size: contain;
     margin: 2rem;
@@ -52,12 +52,12 @@ const CatelogyItem = (props) => {
 
   return (
     <Container>
-      <Image title={props.title} />
+      <Image content={props.content} />
       <RightBox>
-        <H3>#{props.title}</H3>
+        <H3>#{props.content}</H3>
         <ToListBtn
           onClick={() => {
-            navigate("/selectPage");
+            navigate(`/selectPage/${props.content}`, {state:{content : props.content}});
           }}
         >
           리스트 보기

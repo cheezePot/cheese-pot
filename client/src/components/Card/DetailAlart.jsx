@@ -104,7 +104,7 @@ const DetailAlart = (props) => {
             </span>
           </Content>
         </Inner>
-        <Info />
+        <Info content={props.content} idx={props.index} title={props.title}/>
       </Container>
       <Background onClick={props.click}/>
     </>

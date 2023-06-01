@@ -2,13 +2,13 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const Info = () => {
+const Info = (props) => {
   const navigate = useNavigate();
 
   return (
     <Container
       onClick={() => {
-        navigate("/locList");
+        navigate(`/loclist/${props.content}/${props.idx+1}`, { state: { content: props.content, conloc: props.idx+1, title: props.title } });
       }}
     >
       정보 알아보기
