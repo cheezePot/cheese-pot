@@ -8,7 +8,7 @@ const Container = styled.div`
   height: 50rem;
   color: white;
   padding: 0 47rem;
-  background-image: url("https://ko.uni24k.com/media/CACHE/images/unis/building_schools_u3cf4a4a1_871b037d/2237f7157891e223374edb20f3de9af8.jpg");
+  background-image: ${(props) => `url(${props.imageUrl})`};
   background-position: center;
   background-size: cover;
   z-index: -1;
@@ -49,17 +49,17 @@ const DivContent = styled.div`
   gap: 60rem;
   margin-top: 10rem;
 `;
-const LocItem = () => {
+const LocItem = (props) => {
   return (
     <>
       <Gradient />
-      <Container>
+      <Container imageUrl={props.imageUrl}>
         <Content>
           <DivContent>
-            <LocTitle>나고야 음악대학</LocTitle>
+            <LocTitle>{props.locName}</LocTitle>
             <Bookmark />
           </DivContent>
-          <LocDetail>메구미와 신이치가 다니는 대학교</LocDetail>
+          <LocDetail>{props.locEx}</LocDetail>
           <Detail />
         </Content>
       </Container>

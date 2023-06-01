@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import axios from "axios"
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import LocItem from "../components/List/LocItem";
@@ -27,8 +28,27 @@ const Image = styled.div`
   background-position: center;
 `;
 
+
 const LocList = () => {
+  const location = useLocation();
+  const title = location.state.title;
+  let idx = useParams().conloc;
+  const [loc, setLoc] = useState();
+  const [panding, setPanding] = useState(false);
   const { pathname } = useLocation();
+
+    // api가져오기
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/locdata/${idx}/`,
+    {params: {connum: idx}},
+    {withCredentials: true}
+    )
+    .then((res) => {
+      console.log(res.data);
+      setLoc(res.data);
+      setPanding(true);
+    })
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,14 +59,16 @@ const LocList = () => {
       <Navbar />
       <div style={{ padding: "0 37rem" }}>
         <Top>
-          <div className="h1-style">노다메 칸타빌레</div>
+          <div className="h1-style">{title}</div>
           <Image />
         </Top>
       </div>
-      <LocItem />
-      <LocItem />
-      <LocItem />
-      <LocItem />
+      {panding ? 
+        loc.map((a, i)=>{
+          return(
+            <LocItem click={()=>{}} locName={loc[i]["locnam"]} locEx={loc[i]["locex"]} imageUrl={loc[i]["potolin"]} />
+          )
+        }): <div>로딩중...</div>}
     </Container>
   );
 };
