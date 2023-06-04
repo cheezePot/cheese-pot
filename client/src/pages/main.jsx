@@ -1,5 +1,6 @@
-import React from "react";
+import {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import CatelogyItem from "../components/List/CatelogyItem";
 import Searchbar from "../components/Searchbar";
@@ -47,6 +48,25 @@ const Linked = styled.div`
 
 const Main = () => {
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearch = () => {
+    // 검색기능
+    axios.get(`http://localhost:5000/search?search=${searchTerm}`)
+      .then((res) => {
+        console.log(res.data);
+        setSearchResults(res.data);
+      })
+      .catch((error) => {
+        console.error('검색 요청 오류:', error);
+      });
+  };
+
   return (
     <div style={{ overflow: "hidden" }}>
       {/* main */}
@@ -98,7 +118,12 @@ const Main = () => {
             float: "left",
           }}
         ></div>
-        <Searchbar />
+        <Searchbar value={searchTerm} onChange={handleInputChange} handleSearch={handleSearch}/>
+        <ul>
+        {searchResults.length!=0 ? searchResults.map((result) => (
+          <li key={result.id}>{result.contit}</li>)) : <li>검색결과가 없습니다.</li>
+        }
+        </ul>
       </div>
       <LineGif />
       {/* category container */}

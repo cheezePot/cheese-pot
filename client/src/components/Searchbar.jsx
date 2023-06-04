@@ -26,11 +26,12 @@ const Icon = styled.div`
   cursor: pointer;
 `;
 
-const Searchbar = () => {
+const Searchbar = (props) => {
   return (
     <Container>
-      <Input placeholder="검색어를 입력해주세요"></Input>
-      <Icon /> {/* 돋보기 아이콘 */}
+      <Input placeholder="검색어를 입력해주세요" value={props.value} onChange={props.onChange} 
+        onKeyDown={(e)=>{if(e.key==="Enter") props.handleSearch()}}/> 
+      <Icon onClick={props.handleSearch}/> {/* 돋보기 아이콘 */}
     </Container>
   );
 };
