@@ -39,17 +39,19 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/", (req, res) => {
+app.get("/search", (req, res) => {
+  let search = req.query.search;
+
   console.log(`/search 시작`);
-  //console.log(req.body.search);
+  //console.log("search 는" + search + "다");
   dbconn.query(
     "SELECT * FROM contents WHERE contit LIKE ?",
-    ["%" + req.body.search + "%"],
+    ["%" + search + "%"],
     (err, results) => {
       if (err) {
         console.log("db select error" + err);
       } else {
-        //console.log(results);
+        console.log(results);
         res.send(results);
       }
     }
