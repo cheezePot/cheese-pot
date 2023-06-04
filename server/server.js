@@ -15,7 +15,7 @@ let app = express();
 let path = require("path");
 var mysql = require("mysql");
 const bodyParser = require("body-parser");
-const cors = require('cors');
+const cors = require("cors");
 
 app.use(cors());
 
@@ -39,45 +39,68 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.post("/", (req, res) => {
+  console.log(`/search 시작`);
+  //console.log(req.body.search);
+  dbconn.query(
+    "SELECT * FROM contents WHERE contit LIKE ?",
+    ["%" + req.body.search + "%"],
+    (err, results) => {
+      if (err) {
+        console.log("db select error" + err);
+      } else {
+        //console.log(results);
+        res.send(results);
+      }
+    }
+  );
+});
+
 app.get("/api/:content", (req, res) => {
   console.log(`/get/${req.params.content} 시작`);
-  dbconn.query("select * from contents where conca=?", 
-  [req.params.content],
-  (err, results) => {
-    if (err) {
-      console.log("db select error" + err);
-    } else {
-      // console.log(results);
-      res.send(results);
-      // res.render("movie", { datalist: results });
+  dbconn.query(
+    "select * from contents where conca=?",
+    [req.params.content],
+    (err, results) => {
+      if (err) {
+        console.log("db select error" + err);
+      } else {
+        // console.log(results);
+        res.send(results);
+        // res.render("movie", { datalist: results });
+      }
     }
-  });
+  );
 });
 
 app.get(`/api/locdata/:connum`, (req, res) => {
   // let { conca, connum } = req.params;
-  dbconn.query("select * from location where connum=?", 
-  [parseInt(req.params.connum)],
-  (err, results) => {
-    if (err) {
-      console.log("db select error" + err);
-    } else {
-      res.send(results);
+  dbconn.query(
+    "select * from location where connum=?",
+    [parseInt(req.params.connum)],
+    (err, results) => {
+      if (err) {
+        console.log("db select error" + err);
+      } else {
+        res.send(results);
+      }
     }
-  });
+  );
 });
 
 app.get(`/api/locdata/:connum/detail/:locnum`, (req, res) => {
   let { connum, locnum } = req.params;
-  dbconn.query("select * from location where connum=? AND locnum=?", 
-  [parseInt(connum), parseInt(locnum)],
-  (err, results) => {
-    if (err) {
-      console.log("db select error" + err);
-    } else {
-      res.send(results);
+  dbconn.query(
+    "select * from location where connum=? AND locnum=?",
+    [parseInt(connum), parseInt(locnum)],
+    (err, results) => {
+      if (err) {
+        console.log("db select error" + err);
+      } else {
+        res.send(results);
+      }
     }
-  });
+  );
 });
 
 app.listen(5000, () => {
