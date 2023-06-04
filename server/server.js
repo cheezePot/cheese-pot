@@ -41,7 +41,6 @@ app.get("/", (req, res) => {
 
 app.get("/search", (req, res) => {
   let search = req.query.search;
-
   console.log(`/search 시작`);
   //console.log("search 는" + search + "다");
   dbconn.query(
@@ -90,11 +89,11 @@ app.get(`/api/locdata/:connum`, (req, res) => {
   );
 });
 
-app.get(`/api/locdata/:connum/detail/:locnum`, (req, res) => {
+app.get(`/api/locdetail/:locnum`, (req, res) => {
   let { connum, locnum } = req.params;
   dbconn.query(
-    "select * from location where connum=? AND locnum=?",
-    [parseInt(connum), parseInt(locnum)],
+    "select * from location where locnum=?",
+    [parseInt(locnum)],
     (err, results) => {
       if (err) {
         console.log("db select error" + err);

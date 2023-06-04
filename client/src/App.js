@@ -15,8 +15,8 @@ function App() {
         <Route path="/" exact element={<Main />} />
         {/* 동적라우팅 */}
         <Route path="/selectPage/:content" element={<SelectPage />} />
-        <Route path="/locList/:content/:conloc" element={<LocList />} />
-        <Route path="/locList/:connum/locDetail/:locnum" element={<LocDetail />} />
+        <Route path="/locList/:conloc" element={<LocList />} />
+        <Route path="/locDetail/:locnum" element={<LocDetail />} />
         <Route path="/cheezeList" element={<CheezeList />} />
       </Routes>
     </div>

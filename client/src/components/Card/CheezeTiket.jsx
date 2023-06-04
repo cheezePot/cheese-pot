@@ -1,17 +1,17 @@
 // 티켓컴포넌트
 import styled from "styled-components";
 
-const CheezeTiket = () => {
+const CheezeTiket = (props) => {
   return (
     <Container>
       <div style={{ display: "flex" }}>
         <Content>
           <label>NAME</label>
-          <span>旧日本郵船小樽支店</span>
+          <span>{props.name}</span>
           <label>ADDRESS</label>
-          <span>〒047-0031 北海道小樽市色内３丁目７-8</span>
+          <span>{props.address}</span>
           <label>PRICE</label>
-          <span>성인 300엔, 고등학생 150엔, 중학생 이하 무료</span>
+          <span>{props.price}</span>
         </Content>
         <div style={{ width: "78rem", height: "43rem" }}></div>
       </div>
