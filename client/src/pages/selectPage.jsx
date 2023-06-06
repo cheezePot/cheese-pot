@@ -69,7 +69,7 @@ const SelectPage = (props) => {
     
   return (
     <Container>
-      {isAlart ? <DetailAlart content={content} contents={contents} index={index} title={contents[index]["contit"]} click={()=>{setIsAlart(false)}} /> : null}
+      {isAlart ? <DetailAlart contents={contents} title={contents[index]["contit"]} index={index} click={()=>{setIsAlart(false)}} /> : null}
         <Navbar />
         <Main>
           <h1 className="h1-style">{content}</h1>
@@ -97,7 +97,11 @@ const SelectPage = (props) => {
               {panding ? 
               contents.map((a, i)=>{
                 return(
-                  <MediaItem click={()=>{ setIsAlart(true); setIndex(i)}} title={contents[i]["contit"]} imageUrl={contents[i]["titconlin"]}/>
+                  <MediaItem click={()=>{ 
+                    setIsAlart(true);
+                    setIndex(i)
+                    }}
+                  title={contents[i]["contit"]} imageUrl={contents[i]["titconlin"]}/>
                 )
               }): <div>로딩중...</div>}
             </MediaContainer>

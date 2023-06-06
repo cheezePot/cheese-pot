@@ -12,7 +12,14 @@ const Container = styled.div`
   text-align: left;
   overflow: hidden;
 `;
-
+const Title = styled.div`
+  width: 45rem;
+  font-family: GmarketSansBold;
+  color: var(--main-color);
+  line-height: 15rem;
+  letter-spacing: 1rem;
+  font-size: 10rem;
+`
 const Top = styled.div`
   width: 100%;
   height: 60rem;
@@ -29,22 +36,21 @@ const Image = styled.div`
 `;
 
 
-const LocList = () => {
+const LocList = (props) => {
   const location = useLocation();
   const title = location.state.title;
-  let idx = useParams().conloc;
+  let connum = useParams().conloc;
   const [loc, setLoc] = useState();
   const [panding, setPanding] = useState(false);
   const { pathname } = useLocation();
 
-    // api가져오기
+  // api가져오기
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/locdata/${idx}/`,
-    {params: {connum: idx}},
+    axios.get(`http://localhost:5000/api/locdata/${connum}/`,
+    {params: {connum: connum}},
     {withCredentials: true}
     )
     .then((res) => {
-      console.log(res.data);
       setLoc(res.data);
       setPanding(true);
     })
@@ -59,14 +65,14 @@ const LocList = () => {
       <Navbar />
       <div style={{ padding: "0 37rem" }}>
         <Top>
-          <div className="h1-style">{title}</div>
+          <Title>{title}</Title>
           <Image />
         </Top>
       </div>
       {panding ? 
         loc.map((a, i)=>{
           return(
-            <LocItem click={()=>{}} locName={loc[i]["locnam"]} locEx={loc[i]["locex"]} imageUrl={loc[i]["potolin"]} />
+            <LocItem connum={connum} locnum={loc[i]["locnum"]} locName={loc[i]["locnam"]} locEx={loc[i]["locex"]} imageUrl={loc[i]["potolin"]} />
           )
         }): <div>로딩중...</div>}
     </Container>
