@@ -35,10 +35,12 @@ const ListContainer = styled(SubNavbar)`
 const LocList = () => {
   const { pathname } = useLocation();
   const [count, setCount] = useState(5); // 북마크한 장소의 갯수
+  const bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
 
   return (
     <Container>
@@ -64,10 +66,11 @@ const LocList = () => {
           </Selectors>
         </SubNavbar>
         <ListContainer>
-          <BookmarkList />
-          <BookmarkList />
-          <BookmarkList />
-          <BookmarkList />
+          {bookmarks.map((bookmark) => {
+            return(
+              <BookmarkList />
+            )
+          })}
         </ListContainer>
       </Main>
     </Container>
