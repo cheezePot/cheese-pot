@@ -25,9 +25,21 @@ const ToggleBtn = styled.button`
 
 const Bookmark = (props) => {
   const [isOn, setisOn] = useState(false);
+  // const [bookmarks, setBookmarks] = useState([]);
 
   const toggleHandler = () => {
     setisOn(!isOn); //toggle 설정
+    let bookmarks = localStorage.getItem('bookmarks');
+    if(bookmarks === null) bookmarks=[];
+    else bookmarks = JSON.parse(bookmarks);
+    if(!isOn){
+      bookmarks.push(props.locnum);
+    }
+    else{
+      bookmarks.pop(props.locnum);
+    }
+    bookmarks = new Set(bookmarks);
+    localStorage.setItem("bookmarks", JSON.stringify([...bookmarks]));
   };
 
   return (
@@ -39,7 +51,7 @@ const Bookmark = (props) => {
         width={props.width}
         height={props.height}
         style={props.style}
-      ></ToggleBtn>
+      />
     </>
   );
 };
