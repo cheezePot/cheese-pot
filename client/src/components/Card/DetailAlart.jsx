@@ -58,7 +58,7 @@ const Inner = styled.div`
 
 // 작품 제목
 const Title = styled.h1`
-  font-size: 2.8rem;
+  font-size: 2.6rem;
   color: var(--main-color);
   padding: 1rem 0 2rem 0;
   margin-right: 3rem;
@@ -73,12 +73,25 @@ const Content = styled.div`
   justify-items: baseline;
   font-size: 1.35rem;
   line-height: 2.5rem;
+  overflow: hidden;
 `;
 
 const Label = styled.label`
   font-family: GmarketSansMedium;
   color: var(--main-color);
 `;
+
+// 출연진들
+const Cast = styled.div`
+  width: 30rem;
+  height: 2rem;
+  overflow: scroll;
+`
+// 작품 설명
+const ConEx = styled.div`
+  height: 8rem;
+  overflow: scroll;
+`
 
 const DetailAlart = (props) => {
   return (
@@ -93,18 +106,18 @@ const DetailAlart = (props) => {
             <Label>개봉일</Label>
             <span>{props.contents[props.index]["open"]}</span>
             <Label>출연진</Label>
-            <span>{props.contents[props.index]["cast"]}</span>
+            <Cast>{props.contents[props.index]["cast"]}</Cast>
             <Label>장르</Label>
             <span style={{ marginLeft: "2rem" }}>{props.contents[props.index]["genre"]}</span>
             <Label>요약</Label>
             <span style={{ marginLeft: "2rem" }}>
-              <div>
+              <ConEx>
                 {props.contents[props.index]["conex"]}
-              </div>
+              </ConEx>
             </span>
           </Content>
         </Inner>
-        <Info content={props.content} idx={props.index} title={props.title}/>
+        <Info idx={props.contents[props.index]["connum"]} title={props.title}/>
       </Container>
       <Background onClick={props.click}/>
     </>
