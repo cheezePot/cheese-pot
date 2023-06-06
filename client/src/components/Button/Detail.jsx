@@ -1,14 +1,15 @@
 // 자세히 보기 button
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-const Detail = () => {
+const Detail = (props) => {
   const navigate = useNavigate();
 
   return (
     <Container
       onClick={() => {
-        navigate("/locDetail");
+        navigate(`/locDetail/${props.locnum}`, {state: {locnum: props.locnum}});
       }}
     >
       자세히 보기

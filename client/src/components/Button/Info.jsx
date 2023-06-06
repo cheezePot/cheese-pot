@@ -8,7 +8,7 @@ const Info = (props) => {
   return (
     <Container
       onClick={() => {
-        navigate(`/loclist/${props.content}/${props.idx+1}`, { state: { content: props.content, conloc: props.idx+1, title: props.title } });
+        navigate(`/loclist/${props.idx}`, { state: {conloc: props.idx, title: props.title } });
       }}
     >
       정보 알아보기
@@ -25,5 +25,8 @@ const Container = styled.button`
   border-radius: 3rem;
   padding: 1.5rem 3rem;
   color: var(--main-color);
+  &:hover{
+    background-color: #3f3f3f;
+  }
 `;
 export default Info;
