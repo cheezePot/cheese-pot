@@ -57,7 +57,7 @@ app.get("/search", (req, res) => {
   );
 });
 
-app.get("/api/:content", (req, res) => {
+app.get("/api/content/:content", (req, res) => {
   console.log(`/get/${req.params.content} 시작`);
   dbconn.query(
     "select * from contents where conca=?",
@@ -66,9 +66,22 @@ app.get("/api/:content", (req, res) => {
       if (err) {
         console.log("db select error" + err);
       } else {
-        // console.log(results);
         res.send(results);
         // res.render("movie", { datalist: results });
+      }
+    }
+  );
+});
+
+app.get(`/api/bookmarks`, (req, res) => { //req query
+  dbconn.query(
+    `select connum,locnum,locnam,potolin from location where locnum in (${req.query.locnum})`,
+    (err, results) => {
+      if (err) {
+        // where locnum()
+        console.log("db select error" + err);
+      } else {
+        res.send(results);
       }
     }
   );
