@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios"
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import LocItem from "../components/List/LocItem";
+
+export const AppContext = createContext();
 
 const Container = styled.div`
   width: 100%;
@@ -44,6 +46,22 @@ const LocList = (props) => {
   const [panding, setPanding] = useState(false);
   const { pathname } = useLocation();
 
+  // bookmarks 관리 context로 넘겨서 전역관리. bookmarks 배열에 
+  // const [bookmarks, setBookmarks] = useState(() => {
+  //   const bookmarks = JSON.parse(localStorage.getItem('bookmarks'))
+  //   if(bookmarks === null) return []
+  //   else return JSON.parse(bookmarks)
+  // });
+
+  const [bookmarks, setBookmarks] = useState(JSON.parse(localStorage.getItem('bookmarks')) || []);
+
+  // const [isOn, setisOn] = useState(bookmarks.includes(props.locnum));
+  useEffect(() => {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+  }, [bookmarks])
+
+//////////////////////////////////////
+
   // api가져오기
   useEffect(() => {
     axios.get(`http://localhost:5000/api/locdata/${connum}/`,
@@ -61,21 +79,23 @@ const LocList = (props) => {
   }, [pathname]);
 
   return (
-    <Container>
-      <Navbar />
-      <div style={{ padding: "0 37rem" }}>
-        <Top>
-          <Title>{title}</Title>
-          <Image />
-        </Top>
-      </div>
-      {panding ? 
-        loc.map((a, i)=>{
-          return(
-            <LocItem connum={connum} locnum={loc[i]["locnum"]} locName={loc[i]["locnam"]} locEx={loc[i]["locex"]} imageUrl={loc[i]["potolin"]} />
-          )
-        }): <div>로딩중...</div>}
-    </Container>
+    <AppContext.Provider value={{bookmarks, setBookmarks}}>
+      <Container>
+        <Navbar />
+        <div style={{ padding: "0 37rem" }}>
+          <Top>
+            <Title>{title}</Title>
+            <Image />
+          </Top>
+        </div>
+        {panding ? 
+          loc.map((a, i)=>{
+            return(
+              <LocItem connum={connum} locnum={loc[i]["locnum"]} locName={loc[i]["locnam"]} locEx={loc[i]["locex"]} imageUrl={loc[i]["potolin"]} />
+            )
+          }): <div>로딩중...</div>}
+      </Container>
+    </AppContext.Provider>
   );
 };
 

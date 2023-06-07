@@ -1,6 +1,7 @@
 // 치즈모양 북마트 toggle button
-import styled, { css } from "styled-components";
-import { useState } from "react";
+import styled from "styled-components";
+import { useEffect, useState, useContext } from "react";
+import { AppContext } from "../../pages/locList";
 
 // 향후 각 장소를 저장했을 때 사용자 DB에 들어가도록 해야함.
 const ToggleBtn = styled.button`
@@ -11,9 +12,9 @@ const ToggleBtn = styled.button`
   background: transparent;
   /* toggle의 상태에 따라 이미지가 바뀜 */
   background-image: ${(props) =>
-    !props.toggle
-      ? `url(${process.env.PUBLIC_URL}/images/cheeseNonChk.png)`
-      : `url(${process.env.PUBLIC_URL}/images/cheeseChk.png)`};
+    props.toggle
+      ? `url(${process.env.PUBLIC_URL}/images/cheeseChk.png)`
+      : `url(${process.env.PUBLIC_URL}/images/cheeseNonChk.png)`};
   background-position: center;
   background-size: cover;
   object-fit: contain;
@@ -24,24 +25,24 @@ const ToggleBtn = styled.button`
 `;
 
 const Bookmark = (props) => {
-  const [isOn, setisOn] = useState(false);
-  // const [bookmarks, setBookmarks] = useState([]);
+  const {bookmarks, setBookmarks } = useContext(AppContext); // 전역변수 bookmarks
+  const [isOn, setisOn] = useState(bookmarks.includes(props.locnum));
 
   const toggleHandler = () => {
     setisOn(!isOn); //toggle 설정
-    let bookmarks = localStorage.getItem('bookmarks');
-    if(bookmarks === null) bookmarks=[];
-    else bookmarks = JSON.parse(bookmarks);
     if(!isOn){
-      bookmarks.push(props.locnum);
+      setBookmarks(bookmarks => bookmarks.concat(props.locnum))
+      // bookmarks.push(props.locnum); // 한 페이지에서 하나 이상 추가가 안됨.
+      //console.log(`추가된 idx: ${props.locnum} 배열: ${bookmarks}`);
     }
     else{
-      bookmarks.pop(props.locnum);
+      setBookmarks(bookmarks => bookmarks.filter((element) => element !== props.locnum));
+      // bookmarks.splice(bookmarks.indexOf(props.locnum), 1);
+      //console.log(`삭제된 idx: ${props.locnum} 배열: ${bookmarks}`);
+      // localStorage.setItem("bookmarks", JSON.stringify([...newBookmarks]));
     }
-    bookmarks = new Set(bookmarks);
-    localStorage.setItem("bookmarks", JSON.stringify([...bookmarks]));
   };
-
+  
   return (
     <>
       {/* props에 isOn state를 넘김 */}
