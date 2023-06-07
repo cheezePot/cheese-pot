@@ -39,6 +39,48 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/order", (req, res) => {
+  let order = req.query.order;
+  console.log(`/order 시작`);
+  if (order == "AtoZ") {
+    dbconn.query("SELECT * FROM contents order by contit", (err, results) => {
+      if (err) {
+        console.log("db select error" + err);
+      } else {
+        console.log(results);
+        res.send(results);
+      }
+    });
+  } else if (order == "price") {
+    dbconn.query("SELECT * FROM contents order by contit", (err, results) => {
+      if (err) {
+        console.log("db select error" + err);
+      } else {
+        console.log(results);
+        res.send(results);
+      }
+    });
+  } else if (order == "open") {
+    dbconn.query("SELECT * FROM contents order by open", (err, results) => {
+      if (err) {
+        console.log("db select error" + err);
+      } else {
+        console.log(results);
+        res.send(results);
+      }
+    });
+  } else if (order == "genre") {
+    dbconn.query("SELECT * FROM contents order by genre", (err, results) => {
+      if (err) {
+        console.log("db select error" + err);
+      } else {
+        console.log(results);
+        res.send(results);
+      }
+    });
+  }
+});
+
 app.get("/search", (req, res) => {
   let search = req.query.search;
   console.log(`/search 시작`);
@@ -73,7 +115,8 @@ app.get("/api/content/:content", (req, res) => {
   );
 });
 
-app.get(`/api/bookmarks`, (req, res) => { //req query
+app.get(`/api/bookmarks`, (req, res) => {
+  //req query
   dbconn.query(
     `select connum,locnum,locnam,potolin from location where locnum in (${req.query.locnum})`,
     (err, results) => {
