@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import SelectBox from "../components/Card/SelectBox";
 import BookmarkList from "../components/List/BookmarkList";
-import axios from "axios";
+import TouchSlider from "../components/TouchSlider";
 import { AppContext } from "../App";
 
 const Container = styled.div`
@@ -84,7 +85,7 @@ const LocList = () => {
             </Selectors>
           </SubNavbar>
           {panding ? 
-            <>
+            <TouchSlider>
               <Selectors>
                 {bookmarks.map((bookmark, i) => {
                   return(
@@ -92,7 +93,7 @@ const LocList = () => {
                   )
                 })}
               </Selectors>
-            </>
+            </TouchSlider>
           : <div>로딩중...</div>}
       </Main>
      </Container>

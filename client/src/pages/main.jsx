@@ -1,10 +1,11 @@
-import {useState} from "react";
+import {useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import styled from "styled-components";
+import {styled} from "styled-components";
 import CatelogyItem from "../components/List/CatelogyItem";
 import Searchbar from "../components/Searchbar";
 import LineGif from "../components/LineGif";
+import TouchSlider from "../components/TouchSlider";
 
 const Gradient = styled.div`
   width: 100%;
@@ -46,10 +47,19 @@ const Linked = styled.div`
   cursor: pointer;
 `;
 
+const CategoryContainer = styled.div`
+  display: flex;
+  column-gap: 4rem;
+  transition: 0.5s;
+  // transform: translateX(35rem);
+`
+
 const Main = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  // const category = useRef(); // category container ref
+  // const [categoryStyle, setCategoryStyle] = useState();
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -80,7 +90,11 @@ const Main = () => {
       >
         {/* navbar */}
         <MainNavbar>
-          <Linked>CATEGORY</Linked>
+          <Linked
+            onClick={() => {
+              navigate(`/selectPage/MOVIE`, {state:{content : 'MOVIE'}});
+            }}
+          >CATEGORY</Linked>
           <Linked
             onClick={() => {
               navigate("/cheezeList");
@@ -140,11 +154,13 @@ const Main = () => {
             <img src={process.env.PUBLIC_URL + "/images/moreButton.png"} />
           </div>
         </CategoryHeader>
-        <div style={{ display: "flex", columnGap: "4rem" }}>
-          <CatelogyItem content={"MOVIE"} />
-          <CatelogyItem content={"DRAMA"} />
-          <CatelogyItem content={"ANIME"} />
-        </div>
+        <TouchSlider>
+          <CategoryContainer>
+            <CatelogyItem content={"MOVIE"} />
+            <CatelogyItem content={"DRAMA"} />
+            <CatelogyItem content={"ANIME"} />
+          </CategoryContainer>
+        </TouchSlider>
       </div>
     </div>
   );
