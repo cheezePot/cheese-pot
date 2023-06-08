@@ -37,7 +37,7 @@ const ListContainer = styled(SubNavbar)`
 
 const LocList = () => {
   const { pathname } = useLocation();
-  const {bookmarks} = useContext(AppContext);
+  const {bookmarks, setBookmarks } = useContext(AppContext);
   const [count, setCount] = useState(bookmarks.length); // 북마크한 장소의 갯수
   const [panding, setPanding] = useState(false);
   const [contents, setContents] = useState();
@@ -49,9 +49,11 @@ const LocList = () => {
     )
     .then((res) => {
       setContents(res.data);
+      setBookmarks(bookmarks);
+      setCount(bookmarks.length);
       setPanding(true);
     })
-  }, []);
+  }, [bookmarks, count]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,13 +85,13 @@ const LocList = () => {
           </SubNavbar>
           {panding ? 
             <>
-                <ListContainer>
-                  {bookmarks.map((bookmark, i) => {
-                    return(
-                      <BookmarkList contit={contents[i]['contit']} locnum={contents[i]['locnum']} locname={contents[i]['locnam']} imgurl={contents[i]['potolin']}/>
-                    )
-                  })}
-                </ListContainer>
+              <Selectors>
+                {bookmarks.map((bookmark, i) => {
+                  return(
+                    <BookmarkList contents={contents[i]}/>
+                  )
+                })}
+              </Selectors>
             </>
           : <div>로딩중...</div>}
       </Main>

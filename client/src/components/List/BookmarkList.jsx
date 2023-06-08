@@ -1,13 +1,21 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Bookmark from "../Button/Bookmark";
+import { useEffect } from "react";
 
 const Container = styled.div`
   width: 38rem;
   height: 57.5rem;
+  background-color: black;
   border-radius: 2rem;
   border: var(--main-color) 0.4rem solid;
   padding: 3rem;
+  cursor: pointer;
+  transition: 0.5s;
+  &:hover{
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
 `;
 
 const Title = styled.div`
@@ -37,21 +45,26 @@ const Hr = styled.hr`
 `;
 const BookmarkList = (props) => {
   const navigate = useNavigate();
-
+  const [contents, setContents] = useState(props.contents);
+  useEffect(()=>{
+    setContents(props.contents);
+  },[props.contents]);
+  // contit={contents[i]['contit']} locnum={contents[i]['locnum']} locname={contents[i]['locnam']} imgurl={contents[i]['potolin']}
   return (
-    <Container onClick={() => {
-      navigate(`/locDetail/${props.locnum}`, {state: {locnum: props.locnum}});
-    }}>
+    <Container>
       <Bookmark
-        locnum={props.locnum}
+        isOn={true}
+        locnum={contents.locnum}
         width={"5rem"}
         height={"5rem"}
         style={{ float: "right", marginBottom: "3rem" }}
       />
       <Hr />
-      <Title>{props.locname}</Title>
-      <Explain>{props.contit}</Explain>
-      <Image imgurl={props.imgurl}/>
+      <Title>{contents.locnam}</Title>
+      <Explain>{contents.contit}</Explain>
+      <Image imgurl={contents.potolin} onClick={() => {
+        navigate(`/locDetail/${contents.locnum}`, {state: {locnum: contents.locnum}});
+      }}/>
     </Container>
   );
 };

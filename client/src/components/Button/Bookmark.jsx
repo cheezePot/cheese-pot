@@ -25,13 +25,19 @@ const ToggleBtn = styled.button`
 `;
 
 const Bookmark = (props) => {
-  const {bookmarks, setBookmarks } = useContext(AppContext); // 전역변수 bookmarks
+  const { bookmarks, setBookmarks } = useContext(AppContext); // 전역변수 bookmarks
   const [isOn, setisOn] = useState(bookmarks.includes(props.locnum));
+
+  useEffect(()=>{
+    setisOn(bookmarks.includes(props.locnum));
+    if(props.isOn) // cheezeList isOn
+      setisOn(props.isOn);
+  },[bookmarks]);
 
   const toggleHandler = () => {
     setisOn(!isOn); //toggle 설정
     if(!isOn){
-      setBookmarks(bookmarks => bookmarks.concat(props.locnum))
+      setBookmarks(bookmarks => bookmarks.concat(props.locnum));
       // bookmarks.push(props.locnum); // 한 페이지에서 하나 이상 추가가 안됨.
       //console.log(`추가된 idx: ${props.locnum} 배열: ${bookmarks}`);
     }
@@ -48,7 +54,7 @@ const Bookmark = (props) => {
       {/* props에 isOn state를 넘김 */}
       <ToggleBtn
         onClick={toggleHandler}
-        toggle={isOn}
+        toggle={props.isOn || isOn}
         width={props.width}
         height={props.height}
         style={props.style}
