@@ -53,7 +53,7 @@ const SelectPage = (props) => {
   
   // api가져오기
   useEffect(() => {
-      axios.get(`http://localhost:5000/api/${content}`)
+      axios.get(`http://localhost:5000/api/content/${content}`)
       .then((res) => {
         // console.log(res.data);
         setContents(res.data);
