@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import LocItem from "../components/List/LocItem";
 
-export const AppContext = createContext();
+// export const AppContext = createContext();
 
 const Container = styled.div`
   width: 100%;
@@ -15,7 +15,7 @@ const Container = styled.div`
   overflow: hidden;
 `;
 const Title = styled.div`
-  width: 45rem;
+  width: 60rem;
   font-family: GmarketSansBold;
   color: var(--main-color);
   line-height: 15rem;
@@ -26,8 +26,8 @@ const Top = styled.div`
   width: 100%;
   height: 60rem;
   display: flex;
+  align-items: center;
   gap: 6rem;
-  margin-top: 7rem;
 `;
 const Image = styled.div`
   width: 48rem;
@@ -53,12 +53,12 @@ const LocList = (props) => {
   //   else return JSON.parse(bookmarks)
   // });
 
-  const [bookmarks, setBookmarks] = useState(JSON.parse(localStorage.getItem('bookmarks')) || []);
+  // const [bookmarks, setBookmarks] = useState(JSON.parse(localStorage.getItem('bookmarks')) || []);
 
-  // const [isOn, setisOn] = useState(bookmarks.includes(props.locnum));
-  useEffect(() => {
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-  }, [bookmarks])
+  // // const [isOn, setisOn] = useState(bookmarks.includes(props.locnum));
+  // useEffect(() => {
+  //   localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+  // }, [bookmarks])
 
 //////////////////////////////////////
 
@@ -79,23 +79,21 @@ const LocList = (props) => {
   }, [pathname]);
 
   return (
-    <AppContext.Provider value={{bookmarks, setBookmarks}}>
-      <Container>
-        <Navbar />
-        <div style={{ padding: "0 37rem" }}>
-          <Top>
-            <Title>{title}</Title>
-            <Image />
-          </Top>
-        </div>
-        {panding ? 
-          loc.map((a, i)=>{
-            return(
-              <LocItem connum={connum} locnum={loc[i]["locnum"]} locName={loc[i]["locnam"]} locEx={loc[i]["locex"]} imageUrl={loc[i]["potolin"]} />
-            )
-          }): <div>로딩중...</div>}
-      </Container>
-    </AppContext.Provider>
+    <Container>
+      <Navbar />
+      <div style={{ padding: "0 37rem" }}>
+        <Top>
+          <Title>{title}</Title>
+          <Image />
+        </Top>
+      </div>
+      {panding ? 
+        loc.map((a, i)=>{
+          return(
+            <LocItem connum={connum} locnum={loc[i]["locnum"]} locName={loc[i]["locnam"]} locEx={loc[i]["locex"]} imageUrl={loc[i]["potolin"]} />
+          )
+        }): <div>로딩중...</div>}
+    </Container>
   );
 };
 

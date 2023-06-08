@@ -1,7 +1,7 @@
 // 치즈모양 북마트 toggle button
 import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
-import { AppContext } from "../../pages/locList";
+import { AppContext } from "../../App";
 
 // 향후 각 장소를 저장했을 때 사용자 DB에 들어가도록 해야함.
 const ToggleBtn = styled.button`
