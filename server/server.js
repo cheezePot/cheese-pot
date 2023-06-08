@@ -115,10 +115,11 @@ app.get("/api/content/:content", (req, res) => {
   );
 });
 
+const joinquery = 'left outer join contents on location.connum=contents.connum';
 app.get(`/api/bookmarks`, (req, res) => {
   //req query
   dbconn.query(
-    `select connum,locnum,locnam,potolin from location where locnum in (${req.query.locnum})`,
+    `select contit,location.connum,locnum,potolin from location ${joinquery} where locnum in (${req.query.locnum})`,
     (err, results) => {
       if (err) {
         // where locnum()

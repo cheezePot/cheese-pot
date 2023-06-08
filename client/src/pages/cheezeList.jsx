@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import SelectBox from "../components/Card/SelectBox";
 import BookmarkList from "../components/List/BookmarkList";
+import axios from "axios";
+import { AppContext } from "../App";
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 130vh;
   background-color: black;
   margin: 0;
   padding-bottom: 10rem;
@@ -32,10 +34,24 @@ const Selectors = styled.div`
 const ListContainer = styled(SubNavbar)`
   gap: 2rem;
 `;
+
 const LocList = () => {
   const { pathname } = useLocation();
-  const [count, setCount] = useState(5); // 북마크한 장소의 갯수
-  const bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+  const {bookmarks} = useContext(AppContext);
+  const [count, setCount] = useState(bookmarks.length); // 북마크한 장소의 갯수
+  const [panding, setPanding] = useState(false);
+  const [contents, setContents] = useState();
+  const query = Object.values(bookmarks).toString(); // [1,2,3] => 1,2,3
+
+  useEffect(() => {
+    // localstorage에서 데이터를 가져옴 => db에서 데이터를 가져옴
+    axios.get(`http://localhost:5000/api/bookmarks?locnum=${query}`,
+    )
+    .then((res) => {
+      setContents(res.data);
+      setPanding(true);
+    })
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,33 +63,37 @@ const LocList = () => {
       <Navbar />
       <Main>
         <h1 className="h1-style">CHEEZE LIST</h1>
-        <SubNavbar>
-          <h2>
-            <span
-              style={{
-                fontSize: "3.2rem",
-                fontWeight: "bold",
-              }}
-            >
-              {count}
-            </span>
-            LIST
-          </h2>
-          <Selectors>
-            <SelectBox />
-            <SelectBox />
-            <SelectBox />
-          </Selectors>
-        </SubNavbar>
-        <ListContainer>
-          {bookmarks.map((bookmark) => {
-            return(
-              <BookmarkList />
-            )
-          })}
-        </ListContainer>
+          <SubNavbar>
+            <h2>
+              <span
+                style={{
+                  fontSize: "3.2rem",
+                  fontWeight: "bold",
+                }}
+              >
+                {count}
+              </span>
+              LIST
+            </h2>
+            <Selectors>
+                <SelectBox />
+                <SelectBox />
+                <SelectBox />
+            </Selectors>
+          </SubNavbar>
+          {panding ? 
+            <>
+                <ListContainer>
+                  {bookmarks.map((bookmark, i) => {
+                    return(
+                      <BookmarkList contit={contents[i]['contit']} locnum={contents[i]['locnum']} locname={contents[i]['locnam']} imgurl={contents[i]['potolin']}/>
+                    )
+                  })}
+                </ListContainer>
+            </>
+          : <div>로딩중...</div>}
       </Main>
-    </Container>
+     </Container>
   );
 };
 

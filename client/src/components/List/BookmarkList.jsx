@@ -24,9 +24,7 @@ const Image = styled.div`
   width: 38rem;
   height: 38rem;
   border-radius: 2rem;
-  background-image: url("https://ko.uni24k.com/media/CACHE/images/unis/building_schools_u3cf4a4a1_871b037d/2237f7157891e223374edb20f3de9af8.jpg");
-  background-position: center;
-  background-size: cover;
+  background: ${(props) => `url(${props.imgurl})`} center/cover no-repeat;
   margin: 0 auto;
 `;
 const Hr = styled.hr`
@@ -41,16 +39,19 @@ const BookmarkList = (props) => {
   const navigate = useNavigate();
 
   return (
-    <Container>
+    <Container onClick={() => {
+      navigate(`/locDetail/${props.locnum}`, {state: {locnum: props.locnum}});
+    }}>
       <Bookmark
+        locnum={props.locnum}
         width={"5rem"}
         height={"5rem"}
         style={{ float: "right", marginBottom: "3rem" }}
       />
       <Hr />
-      <Title>시나가와 시즌 테라스 이벤트 광장</Title>
-      <Explain>도망치는건 부끄럽지만 도움이 된다</Explain>
-      <Image />
+      <Title>{props.locname}</Title>
+      <Explain>{props.contit}</Explain>
+      <Image imgurl={props.imgurl}/>
     </Container>
   );
 };
