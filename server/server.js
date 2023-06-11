@@ -52,7 +52,7 @@ app.get("/order", (req, res) => {
       }
     });
   } else if (order == "price") {
-    dbconn.query("SELECT * FROM contents order by contit", (err, results) => {
+    dbconn.query("select * from contents left join (select distinct connum, max(locpri) from location group by connum) location on contents.connum = location.connum;", (err, results) => {
       if (err) {
         console.log("db select error" + err);
       } else {
@@ -83,11 +83,12 @@ app.get("/order", (req, res) => {
 
 app.get("/search", (req, res) => {
   let search = req.query.search;
+  let conca = req.query.conca;
   console.log(`/search 시작`);
   //console.log("search 는" + search + "다");
   dbconn.query(
-    "SELECT * FROM contents WHERE contit LIKE ?",
-    ["%" + search + "%"],
+    "SELECT * FROM contents WHERE contit LIKE ? and conca=?",
+    ["%" + search + "%"],[conca],
     (err, results) => {
       if (err) {
         console.log("db select error" + err);
@@ -119,7 +120,7 @@ const joinquery = 'left outer join contents on location.connum=contents.connum';
 app.get(`/api/bookmarks`, (req, res) => {
   //req query
   dbconn.query(
-    `select contit,location.connum,locnum,potolin from location ${joinquery} where locnum in (${req.query.locnum})`,
+    `select contit, location.connum, locnum, locnam, potolin from location ${joinquery} where locnum in (${req.query.locnum})`,
     (err, results) => {
       if (err) {
         // where locnum()
