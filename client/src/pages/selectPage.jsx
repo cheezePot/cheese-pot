@@ -2,13 +2,12 @@ import React, { useState, useEffect, Suspense} from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from 'axios';
-import CatelogyItem from "../components/List/CatelogyItem";
 import Navbar from "../components/Navbar";
 import MediaItem from "../components/List/MediaItem";
 import SelectBox from "../components/Card/SelectBox";
 import DetailAlart from "../components/Card/DetailAlart";
-import Info from "../components/Button/Info";
-import ReverseBtn from "../components/Button/ReverseBtn";
+import Dropdown from "../components/Card/Dropdown";
+import SearchbarSelect from "../components/SearchbarSelect";
 
 const Container = styled.div`
   background-color: black;
@@ -34,6 +33,7 @@ const Selectors = styled.div`
   gap: 2rem;
 `;
 const MediaContainer = styled.div`
+  background-color: black;
   margin-top: 5.5rem;
   display: flex;
   row-gap: 4.5rem;
@@ -44,29 +44,50 @@ const MediaContainer = styled.div`
 const SelectPage = (props) => {
   const [contents, setContents] = useState();
   const [panding, setPanding] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(''); // 검색 query
   const { pathname } = useLocation();
   const location = useLocation();
-  const content = location.state.content;
+  const content = location.state.content; // 현재 무슨 콘텐츠?
   const [count, setCount] = useState(); // 총 본 영화 갯수가 몇인지
   const [isAlart, setIsAlart] = useState(false); //alart창이 띄워지는가?
   const [index, setIndex] = useState(-1);
   
   // api가져오기
-  useEffect(() => {
-      axios.get(`http://localhost:5000/api/content/${content}`)
-      .then((res) => {
-        // console.log(res.data);
-        setContents(res.data);
-        setCount(Object.keys(res.data).length)
-        setPanding(true);
-      })
-  }, []);
+  const getContents = () => {
+    axios.get(`http://localhost:5000/api/content/${content}`)
+    .then((res) => {
+      // console.log(res.data);
+      setContents(res.data);
+      setCount(Object.keys(res.data).length)
+      setPanding(true);
+    })
+  }
+  
+  useEffect(()=>{
+    getContents();
+  },[])
 
     useEffect(() => {
       // 페이지 이동후 스크롤을 가장 위로 올림.
       window.scrollTo(0, 0);
     }, [pathname]);
     
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+    if(event.target.value === "") {
+      getContents();
+    }
+  };
+
+  const handleSearch = () => {
+    axios.get(`http://localhost:5000/search?search=${searchTerm}&conca=${content}`)
+      .then((res) => {
+        setContents(res.data);
+      })
+      .catch((error) => {
+        console.error('검색 요청 오류:', error);
+      });
+  }
   return (
     <Container>
       {isAlart ? <DetailAlart contents={contents} title={contents[index]["contit"]} index={index} click={()=>{setIsAlart(false)}} /> : null}
@@ -87,8 +108,8 @@ const SelectPage = (props) => {
             </h2>
             <Selectors>
               <SelectBox />
-              <SelectBox />
-              <SelectBox />
+              <Dropdown />
+              <SearchbarSelect handleSearch={handleSearch} onChange={handleInputChange}/>
             </Selectors>
           </SubNavbar>
           <Suspense fallback={<p>Loading user details...</p>}>
