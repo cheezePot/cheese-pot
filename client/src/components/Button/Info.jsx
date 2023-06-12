@@ -19,7 +19,7 @@ const Info = (props) => {
 const Container = styled.button`
   position: absolute;
   left: 40%;
-  margin-top: 5rem;
+  margin-top: 8rem;
   background-color: black;
   border: 0.25rem solid var(--main-color);
   border-radius: 3rem;

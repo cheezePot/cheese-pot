@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Info from "../Button/Info";
 
 const Container = styled.div`
-  width: 78rem;
-  height: 38rem;
+  width: 84rem;
+  height: 42rem;
   border-radius: 1.2rem;
   border: 0.3rem solid var(--main-color);
   background-color: black;
@@ -13,7 +13,6 @@ const Container = styled.div`
   top: 25%;
   left: 30%;
 `;
-
 const Background = styled.div`
   width: 100%;
   height: 150vh;
@@ -21,17 +20,15 @@ const Background = styled.div`
   opacity: 0.7;
   position: absolute;
 `
-
 const Image = styled.div`
-  width: 38rem;
-  height: 38rem;
-  border-radius: 1.2rem;
+  width: 42rem;
+  height: 42rem;
+  border-radius: 0.8rem;
   background-size: cover;
   background-position: center;
   background-image: ${(props) =>
-    `url(${props.url})`};
+    `url(${props.imgurl})`};
 `
-
 const CancelBtn = styled.div`
   width: 5rem;
   height: 5rem;
@@ -71,9 +68,9 @@ const Content = styled.div`
   grid-template-rows: repeat(3, 4rem) 10rem;
   grid-template-columns: 5rem 30rem;
   justify-items: baseline;
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   line-height: 2.5rem;
-  overflow: hidden;
+  // overflow: hidden;
 `;
 
 const Label = styled.label`
@@ -97,7 +94,7 @@ const DetailAlart = (props) => {
   return (
     <>
       <Container>
-        <Image style={{ float: "left" }} url={props.contents[props.index]["titconlin"]}/>
+        <Image style={{ float: "left" }} imgurl={props.contents[props.index]["titconlin"]}/>
         <Inner className="light">
           <CancelBtn onClick={props.click}/>
           <Title>{props.contents[props.index]["contit"]}</Title>
@@ -117,7 +114,7 @@ const DetailAlart = (props) => {
             </span>
           </Content>
         </Inner>
-        <Info idx={props.contents[props.index]["connum"]} title={props.title}/>
+      <Info idx={props.contents[props.index]["connum"]} title={props.title}/>
       </Container>
       <Background onClick={props.click}/>
     </>
