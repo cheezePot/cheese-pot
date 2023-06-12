@@ -88,7 +88,7 @@ app.get("/search", (req, res) => {
   //console.log("search 는" + search + "다");
   dbconn.query(
     "SELECT * FROM contents WHERE contit LIKE ? and conca=?",
-    ["%" + search + "%"],[conca],
+    ["%" + search + "%", conca],
     (err, results) => {
       if (err) {
         console.log("db select error" + err);
