@@ -10,6 +10,7 @@
 // });
 
 let express = require("express");
+let dbconn = require("./config");
 let ejs = require("ejs");
 let app = express();
 let path = require("path");
@@ -21,23 +22,28 @@ app.use(cors());
 
 require("dotenv").config();
 
-var dbconn = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USERNAME || "root",
-  password: process.env.DB_PASSWORD,
-  database: "cheesepot",
-});
+// var dbconn = mysql.createConnection({
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USERNAME || "root",
+//   password: process.env.DB_PASSWORD,
+//   database: "cheesepot",
+// });
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// router설정
+const apiRouter = require('./Router/api');
+
 app.get("/", (req, res) => {
   console.log("/ 시작");
-
+  
   res.render("index");
 });
+
+app.use('/api', apiRouter);
 
 app.get("/order", (req, res) => {
   let order = req.query.order;
@@ -83,7 +89,7 @@ app.get("/order", (req, res) => {
 
 app.get("/search", (req, res) => {
   let search = req.query.search;
-  let conca = req.query.conca;
+  let conca = req.query.conca || "";
   console.log(`/search 시작`);
   //console.log("search 는" + search + "다");
   dbconn.query(
@@ -94,68 +100,6 @@ app.get("/search", (req, res) => {
         console.log("db select error" + err);
       } else {
         console.log(results);
-        res.send(results);
-      }
-    }
-  );
-});
-
-app.get("/api/content/:content", (req, res) => {
-  console.log(`/get/${req.params.content} 시작`);
-  dbconn.query(
-    "select * from contents where conca=?",
-    [req.params.content],
-    (err, results) => {
-      if (err) {
-        console.log("db select error" + err);
-      } else {
-        res.send(results);
-        // res.render("movie", { datalist: results });
-      }
-    }
-  );
-});
-
-const joinquery = 'left outer join contents on location.connum=contents.connum';
-app.get(`/api/bookmarks`, (req, res) => {
-  //req query
-  dbconn.query(
-    `select contit, location.connum, locnum, locnam, potolin from location ${joinquery} where locnum in (${req.query.locnum})`,
-    (err, results) => {
-      if (err) {
-        // where locnum()
-        console.log("db select error" + err);
-      } else {
-        res.send(results);
-      }
-    }
-  );
-});
-
-app.get(`/api/locdata/:connum`, (req, res) => {
-  // let { conca, connum } = req.params;
-  dbconn.query(
-    "select * from location where connum=?",
-    [parseInt(req.params.connum)],
-    (err, results) => {
-      if (err) {
-        console.log("db select error" + err);
-      } else {
-        res.send(results);
-      }
-    }
-  );
-});
-
-app.get(`/api/locdetail/:locnum`, (req, res) => {
-  let { connum, locnum } = req.params;
-  dbconn.query(
-    "select * from location where locnum=?",
-    [parseInt(locnum)],
-    (err, results) => {
-      if (err) {
-        console.log("db select error" + err);
-      } else {
         res.send(results);
       }
     }
