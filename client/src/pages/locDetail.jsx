@@ -8,6 +8,8 @@ import CheezeTiket from "../components/Card/CheezeTiket";
 import LineGif from "../components/LineGif";
 import ReverseBtn from "../components/Button/ReverseBtn";
 import GoogleMaps from "../components/GoogleMaps";
+import Accordion from "../components/Accordion/Accordion";
+import PostAccordion from "../components/Accordion/PostAccordion";
 
 const Container = styled.div`
   width: 100%;
@@ -38,14 +40,22 @@ const ContentBox = styled.div`
   align-items: center;
   flex-direction: column;
 `;
-
+const ReviewContainer = styled.div`
+  height: 100rem;
+  padding-left: 42rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+`
 const LocDetail = () => {
   const { pathname } = useLocation();
   const [isOn, setisOn] = useState(false);
   const location = useLocation();
   const locnum = location.state.locnum;
   const [contents, setContents] = useState();
+  const [boards, setBoards] = useState(null);
   const [panding, setPanding] = useState(false);
+  const [pandingBoard, setPandingBoard] = useState(false);
   let [googlemaps, setGooglemaps] = useState(); // location 위도 경도
   
   useEffect(() => {
@@ -61,7 +71,28 @@ const LocDetail = () => {
         lng: res.data[0]['lon'],
       })
     })
+
+    axios.get(`http://localhost:5000/board/list/${locnum}`,
+      {params: {locnum: locnum}},
+      {withCredentials: true}
+    )
+    .then((res) => {
+      setBoards(res.data);
+      console.log(boards);
+      setPandingBoard(true);
+    })
+
   }, []);
+
+  const postBoard = () => {
+    axios.post(`http://localhost:5000/board/post/${locnum}`,
+    {params : {locnum: locnum}},
+    {withCredentials: true}
+  )
+  .then((res)=>{
+    console.log(res);
+  })
+  }
 
   useEffect(() => {
     // 페이지 이동후 스크롤을 가장 위로 올림.
@@ -84,7 +115,7 @@ const LocDetail = () => {
           </BannerImage>
         </div>
         <ContentBox>
-          <Bookmark />
+          <Bookmark locnum={locnum}/>
           <h1 className="bold" style={{ fontSize: "6rem" }}>
             {contents['locnam']}
           </h1>
@@ -100,13 +131,24 @@ const LocDetail = () => {
           style={{
             display: "flex",
             justifyContent: "flex-start",
-            padding: "20rem 42rem",
+            padding: "20rem 0 8rem 42rem",
             gap: "2rem",
           }}
         >
           <ReverseBtn content={"REVIEW"} />
           <ReverseBtn content={"Q/A"} />
+
         </div>
+          <ReviewContainer>
+            {pandingBoard ? 
+              <>
+                <PostAccordion />
+                {boards.map((board, i)=>{
+                  return(<Accordion nickname={board['nickname']} date={board['formatted_date']} title={board['title']} content={board['content']}/>);
+                })}
+              </> : null
+            }
+          </ReviewContainer>
       </> : <div>로딩중...</div>}
     </Container>
   );

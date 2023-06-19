@@ -16,18 +16,14 @@ let app = express();
 let path = require("path");
 var mysql = require("mysql");
 const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 const cors = require("cors");
 
 app.use(cors());
 
 require("dotenv").config();
-
-// var dbconn = mysql.createConnection({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USERNAME || "root",
-//   password: process.env.DB_PASSWORD,
-//   database: "cheesepot",
-// });
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +32,7 @@ app.set("view engine", "ejs");
 
 // router설정
 const apiRouter = require('./Router/api');
+const boardRouter = require('./Router/board');
 
 app.get("/", (req, res) => {
   console.log("/ 시작");
@@ -44,6 +41,7 @@ app.get("/", (req, res) => {
 });
 
 app.use('/api', apiRouter);
+app.use('/board', boardRouter);
 
 app.get("/order", (req, res) => {
   let order = req.query.order;
