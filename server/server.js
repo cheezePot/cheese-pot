@@ -36,7 +36,7 @@ const boardRouter = require('./Router/board');
 
 app.get("/", (req, res) => {
   console.log("/ 시작");
-  
+
   res.render("index");
 });
 
@@ -56,14 +56,17 @@ app.get("/order", (req, res) => {
       }
     });
   } else if (order == "price") {
-    dbconn.query("select * from contents left join (select distinct connum, max(locpri) from location group by connum) location on contents.connum = location.connum;", (err, results) => {
-      if (err) {
-        console.log("db select error" + err);
-      } else {
-        console.log(results);
-        res.send(results);
+    dbconn.query(
+      "select * from contents left join (select distinct connum, max(locpri) from location group by connum) location on contents.connum = location.connum;",
+      (err, results) => {
+        if (err) {
+          console.log("db select error" + err);
+        } else {
+          console.log(results);
+          res.send(results);
+        }
       }
-    });
+    );
   } else if (order == "open") {
     dbconn.query("SELECT * FROM contents order by open", (err, results) => {
       if (err) {
@@ -90,18 +93,36 @@ app.get("/search", (req, res) => {
   let conca = req.query.conca || "";
   console.log(`/search 시작`);
   //console.log("search 는" + search + "다");
-  dbconn.query(
-    "SELECT * FROM contents WHERE contit LIKE ? and conca=?",
-    ["%" + search + "%", conca],
-    (err, results) => {
-      if (err) {
-        console.log("db select error" + err);
-      } else {
-        console.log(results);
-        res.send(results);
+  if (conca != null) {
+    dbconn.query(
+      "SELECT * FROM contents WHERE contit LIKE ? and conca=?",
+      ["%" + search + "%", conca],
+
+      (err, results) => {
+        if (err) {
+          console.log("db select error" + err);
+        } else {
+          console.log(conca);
+          console.log(results);
+          res.send(results);
+        }
       }
-    }
-  );
+    );
+  } else {
+    dbconn.query(
+      "SELECT * FROM contents WHERE contit LIKE ?",
+      ["%" + search + "%"],
+
+      (err, results) => {
+        if (err) {
+          console.log("db select error" + err);
+        } else {
+          console.log(results);
+          res.send(results);
+        }
+      }
+    );
+  }
 });
 
 app.listen(5000, () => {
