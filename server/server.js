@@ -93,7 +93,7 @@ app.get("/search", (req, res) => {
   let conca = req.query.conca || "";
   console.log(`/search 시작`);
   //console.log("search 는" + search + "다");
-  if (conca != null) {
+  if (conca != "" ) {
     dbconn.query(
       "SELECT * FROM contents WHERE contit LIKE ? and conca=?",
       ["%" + search + "%", conca],

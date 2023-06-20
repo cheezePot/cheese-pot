@@ -76,6 +76,13 @@ const Main = () => {
         console.error('검색 요청 오류:', error);
       });
   };
+  /** 화살표 눌렀을 때 왼쪽으로 이동 */
+  const [translateX, setTranslateX] = useState(0);
+
+  const handleMoreButtonClick = () => {
+    setTranslateX(prevTranslateX => prevTranslateX - 200); // 이전 translateX 값에서 200px 더 왼쪽으로 이동
+  };
+  /** 화살표 눌렀을 때 왼쪽으로 이동 */
 
   return (
     <div style={{ overflow: "hidden" }}>
@@ -93,8 +100,7 @@ const Main = () => {
           <Linked
             onClick={() => {
               navigate(`/selectPage/MOVIE`, {state:{content : 'MOVIE'}});
-            }}
-          >CATEGORY</Linked>
+            }}>CATEGORY</Linked>
           <Linked
             onClick={() => {
               navigate("/cheezeList");
@@ -132,35 +138,50 @@ const Main = () => {
             float: "left",
           }}
         ></div>
-        <Searchbar value={searchTerm} onChange={handleInputChange} handleSearch={handleSearch}/>
-        <ul>
-        {searchResults.length!=0 ? searchResults.map((result) => (
-          <li key={result.id}>{result.contit}</li>)) : <li>검색결과가 없습니다.</li>
-        }
+        <Searchbar value={searchTerm} onChange={handleInputChange} handleSearch={handleSearch} visiable={true}/>
+        <ul style={{margin: '10rem 0 0 80rem'}}>
+          {searchResults.length!=0 ? 
+                    searchResults.map((result) =>{
+                      return(
+                        <div style={{display: 'flex', alignItems: 'center'}}>
+                          <div style={{fontSize: '3rem'}} key={result.id}>{result.contit}</div>
+                          <img onClick={()=>{navigate(`/locList/${result.connum}`)}} style={{width: '8rem', cursor: 'pointer'}} src="https://static.vecteezy.com/system/resources/previews/014/441/338/original/external-link-icon-3d-design-for-application-and-website-presentation-png.png"/>
+                        </div>
+                      );
+                    }
+                  )
+                : <div style={{fontSize: '3rem'}}>검색결과가 없습니다.</div>
+          }
         </ul>
       </div>
       <LineGif />
       {/* category container */}
-      <div
-        style={{
-          backgroundColor: "black",
-          height: "98rem",
-          paddingLeft: "37rem",
-        }}
-      >
-        <CategoryHeader>
-          <CategoryTitle>CATEGORY</CategoryTitle>
-          <div>
-            <img src={process.env.PUBLIC_URL + "/images/moreButton.png"} />
-          </div>
-        </CategoryHeader>
-        <TouchSlider>
-          <CategoryContainer>
-            <CatelogyItem content={"MOVIE"} />
-            <CatelogyItem content={"DRAMA"} />
-            <CatelogyItem content={"ANIME"} />
-          </CategoryContainer>
-        </TouchSlider>
+          <div
+            style={{
+              backgroundColor: "black",
+              height: "98rem",
+              paddingLeft: "37rem",
+            }}>
+          <CategoryHeader>
+              <CategoryTitle>CATEGORY</CategoryTitle>
+              <div style={{ cursor: 'pointer' }} onClick={handleMoreButtonClick}>
+                <img src={process.env.PUBLIC_URL + "/images/moreButton.png"} />
+              </div>
+          </CategoryHeader>
+          <div
+            style={{
+              transform: `translateX(${translateX}px)`,
+              transition: 'transform 0.3s ease', // 애니메이션 지속 시간과 타이밍 함수 설정
+            }}
+          >
+          <TouchSlider>
+            <CategoryContainer>
+              <CatelogyItem content={"MOVIE"} />
+              <CatelogyItem content={"DRAMA"} />
+              <CatelogyItem content={"ANIME"} />
+            </CategoryContainer>
+          </TouchSlider>
+        </div>
       </div>
     </div>
   );
