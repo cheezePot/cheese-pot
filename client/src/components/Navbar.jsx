@@ -34,7 +34,9 @@ const Navbar = (props) => {
         }}
       />
       <RightBar>
-        <Linked>CATEGORY</Linked>
+        <Linked
+          onClick={()=>{navigate(`/selectPage/MOVIE`, {state:{content : 'MOVIE'}});}}
+        >CATEGORY</Linked>
         <Linked
           onClick={() => {
             navigate("/cheezeList");

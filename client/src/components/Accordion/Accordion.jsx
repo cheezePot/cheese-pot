@@ -80,19 +80,17 @@ const Accordion = (props) => {
   return (
     <Container>
     <Header onClick={handleButtonClick}>
-      <Title>#1 아코디언</Title>
+      <Title>#1 {props.title}</Title>
       <Button>{buttonText}</Button>
     </Header>
     <Info isCollapse={isCollapse}>
-      <div>꿀꿀한 생쥐37</div>
+      <div>{props.nickname}</div>
       <div>|</div>
-      <div>2022.03.15</div>
+      <div>{props.date}</div>
     </Info>
     <ContentsWrapper ref={parentRef}>
       <Contents ref={childRef}>
-      여기에 본문글을 작성해주시면 됩니다.여기에 본문글을 작성해주시면 됩니다.여기에 본문글을 작성해주시면 됩니다.여기에 본문글을 작성해주시면 됩니다.
-      여기에 본문글을 작성해주시면 됩니다.여기에 본문글을 작성해주시면 됩니다.여기에 본문글을 작성해주시면 됩니다.여기에 본문글을 작성해주시면 됩니다.여기에 본문글을 작성해주시면 됩니다.
-      여기에 본문글을 작성해주시면 됩니다.여기에 본문글을 작성해주시면 됩니다.여기에 본문글을 작성해주시면 됩니다.
+        {props.content}
       </Contents>
     </ContentsWrapper>
   </Container>

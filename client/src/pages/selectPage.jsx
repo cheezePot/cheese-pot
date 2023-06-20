@@ -19,9 +19,11 @@ const Container = styled.div`
 const Main = styled.div`
   padding: 0 37rem;
   font-family: GmarketSansLight;
+  background: black;
 `;
 
 const SubNavbar = styled.div`
+  height: 2rem;
   display: flex;
   margin-top: 13rem;
   align-items: center;
@@ -33,6 +35,7 @@ const Selectors = styled.div`
   gap: 2rem;
 `;
 const MediaContainer = styled.div`
+  height: 100%;
   background-color: black;
   margin-top: 5.5rem;
   display: flex;
@@ -51,6 +54,7 @@ const SelectPage = (props) => {
   const [count, setCount] = useState(); // 총 본 영화 갯수가 몇인지
   const [isAlart, setIsAlart] = useState(false); //alart창이 띄워지는가?
   const [index, setIndex] = useState(-1);
+  const [result, setResult] = useState();
   
   // api가져오기
   const getContents = () => {
@@ -58,6 +62,8 @@ const SelectPage = (props) => {
     .then((res) => {
       // console.log(res.data);
       setContents(res.data);
+      if(res.data==="") //일치하는 검색결과가 없다면
+        console.log("검색결과 없음")
       setCount(Object.keys(res.data).length)
       setPanding(true);
     })
@@ -107,7 +113,9 @@ const SelectPage = (props) => {
               {content}
             </h2>
             <Selectors>
-              <SelectBox />
+              {/* <SelectBox /> */}
+              {/* 콘텐츠 가나다순 개봉일순 장르순 */}
+              <Dropdown />
               <Dropdown />
               <SearchbarSelect handleSearch={handleSearch} onChange={handleInputChange}/>
             </Selectors>

@@ -15,10 +15,11 @@ const Container = styled.div`
 `;
 const Background = styled.div`
   width: 100%;
-  height: 150vh;
+  height: 100%;
   background-color: black;
   opacity: 0.7;
   position: absolute;
+  z-index: 50;
 `
 const Image = styled.div`
   width: 42rem;

@@ -62,7 +62,7 @@ const BookmarkList = (props) => {
       <Hr />
       <Title>{contents.locnam}</Title>
       <Explain>{contents.contit}</Explain>
-      <Image imgurl={contents.potolin} onClick={() => {
+      <Image imgurl={contents.potolin} onDoubleClick={() => {
         navigate(`/locDetail/${contents.locnum}`, {state: {locnum: contents.locnum}});
       }}/>
     </Container>

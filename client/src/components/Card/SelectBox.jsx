@@ -9,18 +9,20 @@ const Select = styled.select`
   border: 3px solid var(--main-color);
   padding: 1.2rem;
   border-radius: 3rem;
+  transition: 0.3s;
+  &:hover{
+    background: var(--main-color);
+    color: black;
+  }
 `;
 const SelectBox = () => {
   return (
     <div>
       <div class="selectBox">
         <Select name="fruits">
-          <option disabled selected>
-            카테고리
-          </option>
-          <option value="apple">드라마</option>
-          <option value="orange">영화</option>
-          <option value="grape">애니메이션</option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+          <option value="option3">Option 3</option>
           <span class="icoArrow" style={{ paddingRight: "0.3rem" }}>
             <img
               src="https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png"

@@ -4,6 +4,12 @@
   color: white;
   font-family: "GmarketSansLight";
   background-repeat: no-repeat;
+  /* 드래그방지 */
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
+  /* 드래그방지 */
 }
 
 /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */

@@ -7,6 +7,7 @@ import SelectBox from "../components/Card/SelectBox";
 import BookmarkList from "../components/List/BookmarkList";
 import TouchSlider from "../components/TouchSlider";
 import { AppContext } from "../App";
+import Dropdown from "../components/Card/Dropdown";
 
 const Container = styled.div`
   width: 100%;
@@ -30,6 +31,7 @@ const Selectors = styled.div`
   display: flex;
   margin-left: auto;
   gap: 2rem;
+  padding: 2rem;
 `;
 
 const ListContainer = styled(SubNavbar)`
@@ -79,9 +81,9 @@ const LocList = () => {
               LIST
             </h2>
             <Selectors>
-                <SelectBox />
-                <SelectBox />
-                <SelectBox />
+                <Dropdown />
+                <Dropdown />
+                <Dropdown />
             </Selectors>
           </SubNavbar>
           {panding ? 

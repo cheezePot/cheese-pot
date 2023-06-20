@@ -1,1 +1,27 @@
-
+.custom-select select {
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 10px;
+    width: 200px;
+  }
+  
+  /* .custom-select::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 3rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+   */
+  .custom-select select:focus {
+    outline: none;
+  }
+  
+  .custom-select select option {
+    background: white;
+    color: black;
+  }
