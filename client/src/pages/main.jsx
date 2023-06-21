@@ -145,7 +145,7 @@ const Main = () => {
                       return(
                         <div style={{display: 'flex', alignItems: 'center'}}>
                           <div style={{fontSize: '3rem'}} key={result.id}>{result.contit}</div>
-                          <img onClick={()=>{navigate(`/locList/${result.connum}`)}} style={{width: '8rem', cursor: 'pointer'}} src="https://static.vecteezy.com/system/resources/previews/014/441/338/original/external-link-icon-3d-design-for-application-and-website-presentation-png.png"/>
+                          <img onClick={()=>{navigate(`/locList/${result.connum}`, { state: {title: result.contit } })}} style={{width: '8rem', cursor: 'pointer'}} src="https://static.vecteezy.com/system/resources/previews/014/441/338/original/external-link-icon-3d-design-for-application-and-website-presentation-png.png"/>
                         </div>
                       );
                     }

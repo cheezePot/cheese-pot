@@ -20,6 +20,7 @@ const Background = styled.div`
   opacity: 0.7;
   position: absolute;
   z-index: 50;
+  position: fixed;
 `
 const Image = styled.div`
   width: 42rem;

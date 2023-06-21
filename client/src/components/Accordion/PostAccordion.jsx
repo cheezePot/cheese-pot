@@ -9,12 +9,13 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   border-radius: 2rem;
-  border: #5B5B5B solid 0.3rem;
+  border: var(--main-color) solid 0.3rem;
   padding: 2rem 3rem 3rem 5rem;
-  background: var(--main-color);
+  background: black;
+  color: var(--main-color);
   `;
-  const Header = styled.div`
-  color: black;
+const Header = styled.div`
+  color: var(--main-color);
   height: 8rem;
   display: flex;
   align-items: center;
@@ -48,7 +49,6 @@ const ContentsWrapper = styled.div`
   height: 0;
   width: inherit;
   overflow: hidden;
-  font-size: 2rem;
   transition: height 0.35s ease, background 0.35s ease;
 `;
 const Contents = styled.div`
@@ -56,7 +56,13 @@ const Contents = styled.div`
   padding-top: 7rem;
   line-height: 4rem;
 `;
-
+const Input = styled.input`
+  width: 250rem;
+  font-size: 2rem;
+  border: 0;
+  background: transparent;
+  outline: none;
+`
 const PostAccordion = (props) => {
   const parentRef = useRef(null);
   const childRef = useRef(null);
@@ -92,7 +98,7 @@ const PostAccordion = (props) => {
     </Info>
     <ContentsWrapper ref={parentRef}>
       <Contents ref={childRef}>
-        {props.content}
+        <Input />
       </Contents>
     </ContentsWrapper>
   </Container>

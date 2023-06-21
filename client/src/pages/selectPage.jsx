@@ -11,9 +11,8 @@ import SearchbarSelect from "../components/SearchbarSelect";
 
 const Container = styled.div`
   background-color: black;
-  height: 100%;
+  height: 100vh;
   padding-bottom: 5rem;
-  // position: fixed; //스크롤 막기
 `;
 
 const Main = styled.div`
@@ -115,8 +114,8 @@ const SelectPage = (props) => {
             <Selectors>
               {/* <SelectBox /> */}
               {/* 콘텐츠 가나다순 개봉일순 장르순 */}
-              <Dropdown />
-              <Dropdown />
+              <Dropdown/>
+              <Dropdown/>
               <SearchbarSelect handleSearch={handleSearch} onChange={handleInputChange}/>
             </Selectors>
           </SubNavbar>

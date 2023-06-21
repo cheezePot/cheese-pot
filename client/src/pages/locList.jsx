@@ -15,7 +15,7 @@ const Container = styled.div`
   overflow: hidden;
 `;
 const Title = styled.div`
-  width: 60rem;
+  width: 75rem;
   font-family: GmarketSansBold;
   color: var(--main-color);
   line-height: 15rem;
@@ -40,7 +40,7 @@ const Image = styled.div`
 
 const LocList = (props) => {
   const location = useLocation();
-  // const title = location.state.title;
+  const title = location.state.title;
   let connum = useParams().conloc;
   const [loc, setLoc] = useState();
   const [panding, setPanding] = useState(false);
@@ -83,7 +83,7 @@ const LocList = (props) => {
       <Navbar />
       <div style={{ padding: "0 37rem" }}>
         <Top>
-          {/* <Title>{title}</Title> */}
+          <Title>{title}</Title>
           <Image />
         </Top>
       </div>
