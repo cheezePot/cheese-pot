@@ -70,7 +70,7 @@ const SelectPage = (props) => {
   
   useEffect(()=>{
     getContents();
-  },[])
+  },[content])
 
     useEffect(() => {
       // 페이지 이동후 스크롤을 가장 위로 올림.
@@ -86,13 +86,14 @@ const SelectPage = (props) => {
 
   const handleSearch = () => {
     axios.get(`http://localhost:5000/search?search=${searchTerm}&conca=${content}`)
-      .then((res) => {
-        setContents(res.data);
-      })
-      .catch((error) => {
-        console.error('검색 요청 오류:', error);
-      });
+    .then((res) => {
+      setContents(res.data);
+    })
+    .catch((error) => {
+      console.error('검색 요청 오류:', error);
+    });
   }
+
   return (
     <Container>
       {isAlart ? <DetailAlart contents={contents} title={contents[index]["contit"]} index={index} click={()=>{setIsAlart(false)}} /> : null}
@@ -115,7 +116,7 @@ const SelectPage = (props) => {
               {/* <SelectBox /> */}
               {/* 콘텐츠 가나다순 개봉일순 장르순 */}
               <Dropdown/>
-              <Dropdown/>
+              {/* <Dropdown/> */}
               <SearchbarSelect handleSearch={handleSearch} onChange={handleInputChange}/>
             </Selectors>
           </SubNavbar>

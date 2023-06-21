@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import {useNavigate} from 'react-router-dom';
 
 const Container = styled.div`
     width: 15rem;
@@ -34,6 +35,7 @@ const Option = styled.div`
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -44,8 +46,20 @@ const Dropdown = () => {
     setIsOpen(false);
   };
 
+  const [Selected, setSelected] = useState("");
+  const handleSelect = (e) => {
+    setSelected(e.target.value);
+  };
+
+  const selectList = ["MOVIE", "DRAMA", "ANIME"];
+  // const selectList = [
+  //   {"드라마" : "DRAMA"}, 
+  //   {"영화" : "MOVIE"}, 
+  //   {"애니메이션" : "ANIME"}
+  // ];
+
   return (
-    <Container isOpen={isOpen}>
+    <Container isOpen={isOpen} onChange={handleSelect}>
       <div className="dropdown-header" onClick={toggleDropdown}>
         {selectedOption || '카테고리'}
         <span className={`arrow ${isOpen ? 'open' : ''}`} style={{float: 'right'}}>
@@ -54,15 +68,12 @@ const Dropdown = () => {
       </div>
       {isOpen && (
         <Options>
-          <Option onClick={() => handleOptionSelect('드라마')} >
-          드라마
-          </Option>
-          <Option className="option" onClick={() => handleOptionSelect('영화')}>
-          영화
-          </Option>
-          <Option className="option" onClick={() => handleOptionSelect('애니메이션')}>
-          애니메이션
-          </Option>
+          {selectList.map((item) => (
+            <Option value={item} key={item} onClick={() => {handleOptionSelect(item); navigate(`/selectPage/${item}`, {state:{content : item}})}} >
+              {item}
+            </Option>
+            ))
+          }
         </Options>
       )}
     </Container>
