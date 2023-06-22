@@ -5,12 +5,16 @@ require("dotenv").config();
 
 router.get('/list/:locnum', (req, res) => {
   const locnum = req.params.locnum;
+  // const query = `
+  //   SELECT b.*, DATE_FORMAT(b.post_date, '%Y-%m-%d') AS formatted_date, c.content AS comment_content, c.nickname AS comment_nickname
+  //   FROM board b
+  //   LEFT JOIN comments c ON b.locnum = c.post_id
+  //   WHERE locnum=${locnum}
+  // `;
   const query = `
-    SELECT b.*, DATE_FORMAT(b.post_date, '%Y-%m-%d') AS formatted_date, c.content AS comment_content, c.nickname AS comment_nickname
-    FROM board b
-    LEFT JOIN comments c ON b.locnum = c.post_id
+    SELECT * FROM board
     WHERE locnum=${locnum}
-  `;
+  `
   dbconn.query(query, (err, results) => {
     if (err) {
       console.log(err);
@@ -46,7 +50,7 @@ router.get('/list/:locnum', (req, res) => {
           rows[postIndex].comments.push(comment);
         }
       });
-      res.send(rows);
+      res.send(results);
       // res.render('list.ejs', { rows: rows });
     }
   });
@@ -73,9 +77,6 @@ dbconn.query(sql, params, (err, results) => {
     }
 });
 });
-
-
-
 
 // random nickname
 function generateRandomNickname() {

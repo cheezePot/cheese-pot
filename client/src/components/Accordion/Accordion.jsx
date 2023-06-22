@@ -1,5 +1,5 @@
 // // 네비게이션바
-import {  useState, useCallback, useRef, useMemo } from "react";
+import {  useState, useCallback, useRef, useMemo, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -26,10 +26,17 @@ const Title = styled.div`
   align-items: center;
 `;
 const Button = styled.div`
-  top: 8px;
-  right: 8px;
-  font-size: 14px;
+  width: 2rem;
+  height: 2rem;
+  top: 30px;
+  right: 30px;
   position: absolute;
+  border: 2px white solid;
+  border-radius: 50%;
+  padding: 0.5rem;
+  background: url('/images/accordionArrow.png') center/contain no-repeat;
+  transition: 0.5s;
+  transform: ${(props)=> props.isCollapse ? 'rotate(180deg)' : 'rotate(0deg)'}
 `;
 const Info = styled.div`
   font-weight: bold;
@@ -80,8 +87,8 @@ const Accordion = (props) => {
   return (
     <Container>
     <Header onClick={handleButtonClick}>
-      <Title>#1 {props.title}</Title>
-      <Button>{buttonText}</Button>
+      <Title>#{props.idx+1} {props.title}</Title>
+      <Button isCollapse={isCollapse}/>
     </Header>
     <Info isCollapse={isCollapse}>
       <div>{props.nickname}</div>

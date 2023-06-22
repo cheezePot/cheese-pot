@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Main = styled.div`
-  padding: 0 37rem;
+  padding: 8rem 37rem;
   font-family: GmarketSansLight;
   background: black;
 `;

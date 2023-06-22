@@ -21,6 +21,7 @@ const Title = styled.div`
   line-height: 15rem;
   letter-spacing: 1rem;
   font-size: 10rem;
+  word-break: keep-all;
 `
 const Top = styled.div`
   width: 100%;
@@ -81,7 +82,7 @@ const LocList = (props) => {
   return (
     <Container>
       <Navbar />
-      <div style={{ padding: "0 37rem" }}>
+      <div style={{ padding: "0rem 37rem" }}>
         <Top>
           <Title>{title}</Title>
           <Image />

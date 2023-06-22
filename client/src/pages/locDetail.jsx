@@ -77,22 +77,14 @@ const LocDetail = () => {
       {withCredentials: true}
     )
     .then((res) => {
+      console.log(res.data);
       setBoards(res.data);
       console.log(boards);
       setPandingBoard(true);
     })
 
-  }, []);
+  }, [boards]);
 
-  const postBoard = () => {
-    axios.post(`http://localhost:5000/board/post/${locnum}`,
-    {params : {locnum: locnum}},
-    {withCredentials: true}
-  )
-  .then((res)=>{
-    console.log(res);
-  })
-  }
 
   useEffect(() => {
     // 페이지 이동후 스크롤을 가장 위로 올림.
@@ -135,16 +127,14 @@ const LocDetail = () => {
             gap: "2rem",
           }}
         >
-          <ReverseBtn content={"REVIEW"} />
-          <ReverseBtn content={"Q/A"} />
-
+          <ReverseBtn content={"REVIEW"}/>
         </div>
           <ReviewContainer>
             {pandingBoard ? 
               <>
-                <PostAccordion />
+                <PostAccordion locnum={locnum}/>
                 {boards.map((board, i)=>{
-                  return(<Accordion nickname={board['nickname']} date={board['formatted_date']} title={board['title']} content={board['content']}/>);
+                  return(<Accordion idx={i} nickname={board['nickname']} date={board['formatted_date']} title={board['title']} content={board['content']}/>);
                 })}
               </> : null
             }

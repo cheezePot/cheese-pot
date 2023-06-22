@@ -21,7 +21,7 @@ const Container = styled.button`
 `;
 
 const ReverseBtn = (props) => {
-  const [isOn, setisOn] = useState(false);
+  const [isOn, setisOn] = useState(true);
 
   const toggleHandler = () => {
     // isOn의 상태를 변경하는 메소드를 구현

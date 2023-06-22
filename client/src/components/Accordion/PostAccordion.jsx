@@ -1,5 +1,6 @@
 // // 네비게이션바
-import {  useState, useCallback, useRef, useMemo } from "react";
+import {  useState, useCallback, useRef, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -11,8 +12,8 @@ const Container = styled.div`
   border-radius: 2rem;
   border: var(--main-color) solid 0.3rem;
   padding: 2rem 3rem 3rem 5rem;
-  background: black;
-  color: var(--main-color);
+  background: var(--main-color);
+  color: black;
   `;
 const Header = styled.div`
   color: var(--main-color);
@@ -29,12 +30,16 @@ const Title = styled.input`
   background: transparent;
   outline: none;
   border: 0;
+  color: black;
 `;
 const Button = styled.div`
-  top: 8px;
+  top: 3rem;
   right: 8px;
+  width: 28rem;
+  height: 6rem;
   font-size: 14px;
   position: absolute;
+  background: ${(props)=> !props.isCollapse ? "url('/images/locDetail/writeBtn.png') center/contain no-repeat" : "url('/images/locDetail/uploadBtn.png') center/contain no-repeat"}
 `;
 const Info = styled.div`
   font-weight: bold;
@@ -56,19 +61,28 @@ const Contents = styled.div`
   padding-top: 7rem;
   line-height: 4rem;
 `;
-const Input = styled.input`
-  width: 250rem;
+const TextArea = styled.textarea`
+  width: 120rem;
   font-size: 2rem;
   border: 0;
   background: transparent;
   outline: none;
+  line-height: 4rem;
+  color: black;
 `
 const PostAccordion = (props) => {
   const parentRef = useRef(null);
   const childRef = useRef(null);
   const [isCollapse, setIsCollapse] = useState(false); // 열고, 닫힘
   const parentRefHeight = parentRef.current?.style.height ?? '0px';
-  const buttonText = parentRefHeight === '0px' ? '열기' : '닫기';
+  const buttonText = parentRefHeight === '0px' ? 'writeBtn' : 'uploadBtn';
+  
+  let [title, setTitle] = useState();
+  let [content, setContent] = useState();
+
+  useEffect(()=>{
+    
+  }, []);
 
   const handleButtonClick = useCallback(
     (event) => {
@@ -87,18 +101,36 @@ const PostAccordion = (props) => {
     [isCollapse]
   );
 
+  
+  const postBoard = (locnum) => {
+    if(title!=="" && content!==""){
+      axios.post(`http://localhost:5000/board/post/${locnum}`,
+      {
+        title: title,
+        content: content,
+      },
+      {params : {locnum: locnum}},
+      {withCredentials: true}
+    )
+    .then((res)=>{
+      console.log(res);
+      setTitle('');
+      setContent('');
+    })
+    }
+  }
+
   return (
     <Container>
     <Header onClick={handleButtonClick}>
-      <Title placeholder="리뷰글의 타이틀을 입력해주세요"/>
-      <Button>{buttonText}</Button>
+      <Title placeholder="리뷰글의 타이틀을 입력해주세요" maxLength={20} value={title} onChange={(e)=>setTitle(e.target.value)}/>
+      <Button text={buttonText} isCollapse={isCollapse} onClick={()=>{postBoard(props.locnum)}} />
     </Header>
     <Info isCollapse={isCollapse}>
-      <div></div>
     </Info>
     <ContentsWrapper ref={parentRef}>
       <Contents ref={childRef}>
-        <Input />
+        <TextArea placeholder="게시글의 내용을 입력하세요." row={15} col={20} wrap="on" value={content} onChange={(e)=>setContent(e.target.value)} />
       </Contents>
     </ContentsWrapper>
   </Container>
