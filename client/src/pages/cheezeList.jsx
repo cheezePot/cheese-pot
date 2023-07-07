@@ -80,11 +80,11 @@ const LocList = () => {
               </span>
               LIST
             </h2>
-            <Selectors>
+            {/* <Selectors>
                 <Dropdown />
                 <Dropdown />
                 <Dropdown />
-            </Selectors>
+            </Selectors> */}
           </SubNavbar>
           {panding ? 
             <TouchSlider>

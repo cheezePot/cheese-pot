@@ -77,9 +77,7 @@ const LocDetail = () => {
       {withCredentials: true}
     )
     .then((res) => {
-      console.log(res.data);
       setBoards(res.data);
-      console.log(boards);
       setPandingBoard(true);
     })
 
